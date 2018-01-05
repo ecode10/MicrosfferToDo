@@ -185,6 +185,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AtividadesToDoController.cs" />
+    <Compile Include="Controllers\AuthHeader.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAL\DBContextToDo.cs" />
     <Compile Include="Global.asax.cs">
@@ -262,6 +263,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MicrosfferToDo.Library\MicrosfferToDo.Library.csproj">
+      <Project>{82bc235d-a478-479c-9cc3-9900487d57b6}</Project>
+      <Name>MicrosfferToDo.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

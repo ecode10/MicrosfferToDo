@@ -22,12 +22,30 @@ namespace MicrosfferToDo.Controllers
         private DBContextToDo db = new DBContextToDo();
 
         /// <summary>
+        /// Método que verifica a autorização do token
+        /// </summary>
+        /// <returns>IHttpActionResult</returns>
+        private IHttpActionResult checkAutenticacao()
+        {
+            AuthHeader _auth = new AuthHeader();
+            if (_auth.autorizarToken(Request.Headers) == HttpStatusCode.Unauthorized)
+            {
+                throw new Exception("Error: Your are not unauthorized - Code: " + HttpStatusCode.Unauthorized);
+            }
+            else
+                return null;
+        }
+
+        /// <summary>
         /// Método que busca todas as atividades do ToDo
         /// </summary>
         /// <returns>IQueryable</returns>
         // GET: api/AtividadesToDo
         public IQueryable<AtividadesToDo> GetAtividadesToDo()
         {
+            //método que verifica a autorizacao do sistema
+            checkAutenticacao();
+
             return db.AtividadesToDo;
         }
 
@@ -40,6 +58,9 @@ namespace MicrosfferToDo.Controllers
         [ResponseType(typeof(AtividadesToDo))]
         public IHttpActionResult GetAtividadesToDo(long id)
         {
+            //método que verifica a autorizacao do sistema
+            checkAutenticacao();
+
             AtividadesToDo atividadesToDo = db.AtividadesToDo.Find(id);
             if (atividadesToDo == null)
             {
@@ -60,6 +81,9 @@ namespace MicrosfferToDo.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutAtividadesToDo(long id, AtividadesToDo atividadesToDo)
         {
+            //método que verifica a autorizacao do sistema
+            checkAutenticacao();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -100,6 +124,9 @@ namespace MicrosfferToDo.Controllers
         [ResponseType(typeof(AtividadesToDo))]
         public IHttpActionResult PostAtividadesToDo(AtividadesToDo atividadesToDo)
         {
+            //método que verifica a autorizacao do sistema
+            checkAutenticacao();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -120,6 +147,9 @@ namespace MicrosfferToDo.Controllers
         [ResponseType(typeof(AtividadesToDo))]
         public IHttpActionResult DeleteAtividadesToDo(long id)
         {
+            //método que verifica a autorizacao do sistema
+            checkAutenticacao();
+
             AtividadesToDo atividadesToDo = db.AtividadesToDo.Find(id);
             if (atividadesToDo == null)
             {
