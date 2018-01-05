@@ -93,5 +93,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MicrosfferToDo.Library\MicrosfferToDo.Library.csproj">
+      <Project>{82bc235d-a478-479c-9cc3-9900487d57b6}</Project>
+      <Name>MicrosfferToDo.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
