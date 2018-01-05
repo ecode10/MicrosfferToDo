@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrosfferToDo.WebAPI", "Mi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrosfferToDo.WebSite", "MicrosfferToDo.WebSite\MicrosfferToDo.WebSite.csproj", "{9E51CCD8-E863-4445-812F-1ED8AF088917}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrosfferToDo.WPF", "MicrosfferToDo.WPF\MicrosfferToDo.WPF.csproj", "{C083268A-1A15-4D40-8E2C-18640F44BA70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9E51CCD8-E863-4445-812F-1ED8AF088917}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E51CCD8-E863-4445-812F-1ED8AF088917}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E51CCD8-E863-4445-812F-1ED8AF088917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C083268A-1A15-4D40-8E2C-18640F44BA70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C083268A-1A15-4D40-8E2C-18640F44BA70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C083268A-1A15-4D40-8E2C-18640F44BA70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C083268A-1A15-4D40-8E2C-18640F44BA70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
