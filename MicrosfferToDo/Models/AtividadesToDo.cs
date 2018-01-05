@@ -8,6 +8,7 @@ namespace MicrosfferToDo.Models
 {
     /// <summary>
     /// Classe que faz uma relação direta com as propriedades do banco de dados.
+    /// <author>Mauricio Junior</author>
     /// </summary>
     public class AtividadesToDo
     {

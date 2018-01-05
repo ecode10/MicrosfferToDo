@@ -15,6 +15,7 @@ namespace MicrosfferToDo.Controllers
 {
     /// <summary>
     /// Classe responsável pela comunicação com a tabela de Atividades ToDo do projeto
+    /// <author>Mauricio Junior</author>
     /// </summary>
     public class AtividadesToDoController : ApiController
     {

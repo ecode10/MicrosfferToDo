@@ -11,6 +11,7 @@ namespace MicrosfferToDo.DAL
     /// <summary>
     /// Classe que serve para o contexto do web api
     /// Trabalha a conexão com o banco através do nome da base
+    /// <author>Mauricio Junior</author>
     /// </summary>
     public class DBContextToDo : DbContext
     {
