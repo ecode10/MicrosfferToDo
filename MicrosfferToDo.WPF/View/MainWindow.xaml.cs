@@ -1,6 +1,10 @@
-﻿using System;
+﻿using MicrosfferToDo.Library.Commum;
+using MicrosfferToDo.Library.Util;
+using MicrosfferToDo.WPF.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,7 +28,7 @@ namespace MicrosfferToDo.WPF
         {
             InitializeComponent();
 
-            
+            DataContext = new ToDoViewModel();
         }
     }
 }
