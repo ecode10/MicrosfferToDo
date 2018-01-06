@@ -4,6 +4,7 @@ using MicrosfferToDo.WPF.Model;
 using MicrosfferToDo.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -12,7 +13,7 @@ using System.Windows.Input;
 
 namespace MicrosfferToDo.WPF.Command
 {
-    public class SalvarAtividadeCommand : ICommand
+    public class DeletarAtividadeCommand : ICommand
     {
 
         #region " ### campos " 
@@ -23,7 +24,7 @@ namespace MicrosfferToDo.WPF.Command
 
         #region "#### Construtor " 
 
-        public SalvarAtividadeCommand(ToDoViewModel _viewModel)
+        public DeletarAtividadeCommand(ToDoViewModel _viewModel)
         {
             _todoViewModel = _viewModel;
         }
@@ -58,23 +59,16 @@ namespace MicrosfferToDo.WPF.Command
         {
             var client = HttpClientRequest.getClient();
 
-            //preenche os dados
-            var _atividades = new AtividadeToDo()
-            {
-                NomeTodo = _todoViewModel.NomeTodo,
-                CompletoTodo = 0
-            };
-
-            HttpResponseMessage response = client.PostAsJsonAsync(EnderecosWebAPI._post, _atividades).Result;
+            HttpResponseMessage response = client.DeleteAsync(EnderecosWebAPI._delete+ _todoViewModel.Atividade.IdTodo).Result;
             Uri envioUri = response.Headers.Location;
 
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    MessageBox
-            //    //Response.Redirect("Default?guid=" + Guid.NewGuid() + "&id=sucesso");
-            //}
+            if (response.IsSuccessStatusCode)
+            {
+                CarregarAtividadeCommand _carr = new CarregarAtividadeCommand(_todoViewModel);
+                _carr.Execute(null);
+            }
             //else
-                //Response.Write(response.StatusCode.ToString() + " - " + response.ReasonPhrase.ToString());
+            //Response.Write(response.StatusCode.ToString() + " - " + response.ReasonPhrase.ToString());
 
             //var clube = new ClubeDeFutebol();
             //clube.Nome = m_ViewModel.Nome;

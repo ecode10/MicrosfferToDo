@@ -21,41 +21,54 @@ namespace MicrosfferToDo.WPF.Model
 
         #endregion
 
-        #region "##### Propriedades"
-        private string _nomeTodo;
+        
 
-        public string NomeTodo
+        #region "### Construtor "
+        public AtividadeToDo() { }
+        #endregion
+
+        #region "#### Propriedades "
+        private Int64 _idTodo;
+        public Int64 IdTodo
         {
-            get { return _nomeTodo; }
+            get { return this._idTodo; }
             set
             {
-                _nomeTodo = value;
-                this.NotifyPropertyChanged("NomeTodo");
+                if (value != _idTodo)
+                {
+                    _idTodo = value;
+                    this.NotifyPropertyChanged("IdTodo");
+                }
             }
         }
 
-        //private Int64 _idTodo;
-        //public Int64 IdTodo
-        //{
-        //    get { return _idTodo; }
-        //    set
-        //    {
-        //        _idTodo = value;
-        //        //this.NotifyPropertyChanged("IdTodo");
-        //    }
-        //}
+        private string _nomeTodo;
+        public string NomeTodo
+        {
+            get { return this._nomeTodo; }
+            set
+            {
+                if (value != _nomeTodo)
+                {
+                    _nomeTodo = value;
+                    this.NotifyPropertyChanged("NomeTodo");
+                }
+            }
+        }
 
-        //private int _completoTodo;
-        //public int CompletoTodo
-        //{
-        //    get { return _completoTodo; }
-        //    set
-        //    {
-        //        _completoTodo = value;
-        //        //this.NotifyPropertyChanged("CompletoTodo");
-        //    }
-        //}
-
+        private int _completoTodo;
+        public int CompletoTodo
+        {
+            get { return this._completoTodo; }
+            set
+            {
+                if (value != _completoTodo)
+                {
+                    _completoTodo = value;
+                    this.NotifyPropertyChanged("CompletoTodo");
+                }
+            }
+        }
         #endregion
     }
 }

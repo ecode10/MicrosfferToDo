@@ -15,11 +15,11 @@
             <TextBox x:Name="txtNomeToDo" Text="{Binding NomeTodo}" TextWrapping="Wrap" Margin="1,3,154,2.8" Background="{x:Null}" FontSize="16" AutomationProperties.HelpText="Digite a atividade" AutomationProperties.Name="txtTituloAtividade"/>
         </Border>
         <Button x:Name="btnEnviar" Command="{Binding SalvarAtividadeCommand}" Content="Enviar" HorizontalAlignment="Left" Margin="376,55,0,0" VerticalAlignment="Top" Width="125" Height="34" AutomationProperties.HelpText="Clique para enviar os dados" AutomationProperties.Name="btnEnviar" Background="#FFDDDDDD" FontSize="16"/>
-        <TextBox HorizontalAlignment="Left" Height="12" Margin="10,74,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="111"/>
+        <Button x:Name="btnDeletar" Command="{Binding DeletarAtividadeCommand}" Content="Deletar" HorizontalAlignment="Left" Margin="82,106,0,0" VerticalAlignment="Top" Width="125" Height="34" AutomationProperties.HelpText="Clique para deletar os dados" AutomationProperties.Name="btnDeletar" Background="#FFDDDDDD" FontSize="16"/>
 
-        <DataGrid ItemsSource="{Binding Source=ListAtividadeToDo}" x:Name="dtgListaAtividades" AutoGenerateColumns="False" Margin="23,153,19,17.8">
+        <DataGrid ItemsSource="{Binding ListDeAtividadeToDo}" x:Name="dtgListaAtividades" SelectedItem="{Binding Atividade}" AutoGenerateColumns="False" Margin="23,153,19,17.8">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding NomeTodo}" IsReadOnly="True" Header="Nome" Width="300" />
+                <DataGridTextColumn Binding="{Binding NomeTodo}" IsReadOnly="True" Header="Nome" Width="450" />
             </DataGrid.Columns>
         </DataGrid>
         <Label x:Name="lblAtividadesToDo" Content="Entre com sua atividade" Margin="82.343,8,67,0" VerticalAlignment="Top" FontSize="26.667" FontWeight="Bold" FontFamily="Book Antiqua"/>

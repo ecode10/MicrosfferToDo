@@ -1,5 +1,6 @@
 ﻿using MicrosfferToDo.Library.Commum;
 using MicrosfferToDo.Library.Util;
+using MicrosfferToDo.WPF.Model;
 using MicrosfferToDo.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -59,10 +60,21 @@ namespace MicrosfferToDo.WPF.Command
 
             if (response.IsSuccessStatusCode)
             {
-                var _atividadesTodo = response.Content.ReadAsAsync<IEnumerable<AtividadesToDo>>().Result;
+                var _atividadesTodo = response.Content.ReadAsAsync<IEnumerable<AtividadeToDo>>().Result;
 
-                ObservableCollection<AtividadesToDo> list = new ObservableCollection<AtividadesToDo>(_atividadesTodo);
+                ObservableCollection<AtividadeToDo> list = _todoViewModel.ListDeAtividadeToDo; //new ObservableCollection<AtividadeToDo>(_atividadesTodo);
+                list.Clear();
+                foreach (var item in _atividadesTodo)
+                {
+                    AtividadeToDo _ativ = new AtividadeToDo();
+                    _ativ.NomeTodo = item.NomeTodo;
+                    _ativ.IdTodo = item.IdTodo;
+
+                    list.Add(_ativ);
+                }
+
                 _todoViewModel.ListDeAtividadeToDo = list;
+                
                 
                 //Console.Out.WriteLine("teste");
                 //Response.Redirect("Default?guid=" + Guid.NewGuid() + "&id=sucesso");

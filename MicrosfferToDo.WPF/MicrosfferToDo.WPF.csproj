@@ -79,8 +79,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AtividadesToDo.cs" />
     <Compile Include="Command\CarregarAtividadeCommand.cs" />
+    <Compile Include="Command\DeletarAtividadeCommand.cs" />
     <Compile Include="Command\SalvarAtividadeCommand.cs" />
     <Compile Include="Model\AtividadeToDo.cs" />
     <Compile Include="ViewModel\ToDoViewModel.cs" />

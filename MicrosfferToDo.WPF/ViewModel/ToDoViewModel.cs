@@ -1,4 +1,5 @@
 ﻿using MicrosfferToDo.WPF.Command;
+using MicrosfferToDo.WPF.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,29 +28,34 @@ namespace MicrosfferToDo.WPF.ViewModel
         #region "### Propriedades "
 
         //propriedades utilizadas na view
-        private ObservableCollection<AtividadesToDo> _listDeAtividadeToDo;
+        private ObservableCollection<AtividadeToDo> _listDeAtividadeToDo;
 
-        public ObservableCollection<AtividadesToDo> ListDeAtividadeToDo
+        public ObservableCollection<AtividadeToDo> ListDeAtividadeToDo
         {
             get { return _listDeAtividadeToDo; }
 
             set
             {
                 _listDeAtividadeToDo = value;
-                this.NotifyPropertyChanged("ListAtividadeToDo");
+                this.NotifyPropertyChanged("ListDeAtividadeToDo");
+
             }
         }
 
-        private AtividadesToDo _atividadeToDo;
+        private AtividadeToDo _atividade;
 
-        public AtividadesToDo AtividadeToDo
+        public AtividadeToDo Atividade
         {
-            get { return _atividadeToDo; }
-
+            get { return _atividade; }
             set
             {
-                _atividadeToDo = value;
-                this.NotifyPropertyChanged("AtividadeToDo");
+
+                if (value != _atividade)
+                {
+                    _atividade = value;
+                    //Notificar alteração da propriedade
+                    this.NotifyPropertyChanged("Atividade");
+                }
             }
         }
 
@@ -74,8 +80,11 @@ namespace MicrosfferToDo.WPF.ViewModel
             get { return _idTodo; }
             set
             {
-                _idTodo = value;
-                this.NotifyPropertyChanged("IdTodo");
+                if (value != _idTodo)
+                {
+                    _idTodo = value;
+                    this.NotifyPropertyChanged("IdTodo");
+                }
             }
         }
 
@@ -85,8 +94,11 @@ namespace MicrosfferToDo.WPF.ViewModel
             get { return _completoTodo; }
             set
             {
-                _completoTodo = value;
-                this.NotifyPropertyChanged("CompletoTodo");
+                if (value != _completoTodo)
+                {
+                    _completoTodo = value;
+                    this.NotifyPropertyChanged("CompletoTodo");
+                }
             }
         }
 
@@ -95,7 +107,7 @@ namespace MicrosfferToDo.WPF.ViewModel
         #region "#### Comandos ### "
         public ICommand SalvarAtividadeCommand { get; set; }
 
-        //public ICommand DeletarAtividadeCommand { get; set; }
+        public ICommand DeletarAtividadeCommand { get; set; }
 
         public ICommand CarregarAtividadeCommand { get; set; }
 
@@ -106,14 +118,16 @@ namespace MicrosfferToDo.WPF.ViewModel
 
         private void Initialize()
         {
+            this._listDeAtividadeToDo = null;
+            this._listDeAtividadeToDo = new ObservableCollection<AtividadeToDo>();
+
             this.SalvarAtividadeCommand = new SalvarAtividadeCommand(this);
             this.CarregarAtividadeCommand = new CarregarAtividadeCommand(this);
-
-            this._listDeAtividadeToDo = new ObservableCollection<AtividadesToDo>();
+            this.DeletarAtividadeCommand = new DeletarAtividadeCommand(this);
 
             CarregarAtividadeCommand.Execute(null);
 
-            Console.Beep();
+            
         }
         #endregion
 
