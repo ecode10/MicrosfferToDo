@@ -22,13 +22,18 @@ namespace MicrosfferToDo.Controllers
         {
             System.Net.Http.Headers.HttpRequestHeaders headers = req; //this.Request.Headers;
             string _token = string.Empty;
+            string _pwd = string.Empty;
 
-            if (headers.Contains("token"))
+            if (headers.Contains("token") && headers.Contains("pwd"))
+            {
                 _token = headers.GetValues("token").First();
+                _pwd = headers.GetValues("pwd").First();
+            }
             
             try
             {
-                if (_token.Equals(MicrosfferToDo.Library.Commum.TokenWebAPI._publicToken))
+                if (_token.Equals(MicrosfferToDo.Library.Commum.TokenWebAPI._publicToken) &&
+                    _pwd.Equals(MicrosfferToDo.Library.Commum.TokenWebAPI._pwd))
                     return HttpStatusCode.Accepted;
                 else
                     return HttpStatusCode.Unauthorized;

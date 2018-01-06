@@ -2,41 +2,79 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
+    <script>
+        function abrir() {
+            
+            var doc = document.getElementById("abrirGrid");
+            var lnk = document.getElementById("lnkAtividadesRealizadas");
+
+            if (lnk.innerText == "+") {
+                doc.style.display = '';
+                lnk.innerText = "-";
+            } else {
+                doc.style.display = 'none';
+                lnk.innerText = "+";
+            }
+
+            
+        }
+    </script>
+
+
+    <asp:HiddenField ID="hdIdToDo" runat="server" />
+
     <div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        
+        <h3>Microsffer ToDo</h3>
+        <asp:TextBox runat="server" ID="txtTituloToDo" CssClass="form-control" placeholder="Digite a atividade" />
+        <asp:Button Text="Enviar" CssClass="btn btn-primary btn-block" OnClick="btnEnviar_Click" ID="btnEnviar" runat="server" />
+        <asp:Button Text="Editar" Visible="false" CssClass="btn btn-primary btn-block" OnClick="btnEditar_Click" ID="btnEditar" runat="server" />
+
     </div>
+
+    
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <asp:GridView runat="server" ID="grdToDo" DataKeyNames="IdToDo" AllowPaging="true" 
+                        Width="100%" PageSize="50" GridLines="None" AutoGenerateColumns="false" 
+                    OnRowDeleting="grdToDo_RowDeleting" OnRowCommand="grdToDo_RowCommand">
+                    <AlternatingRowStyle BackColor="#f1f1f1" />
+                    <HeaderStyle BackColor="#cccccc" />
+                    <RowStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                    <Columns>
+                        <asp:ButtonField ButtonType="Image" ImageUrl="~/Images/checkbox_vazio.png" CommandName="Feito" HeaderText="" Text="" />
+                        <asp:BoundField DataField="NomeToDo" HeaderText="Nome da Conta" />
+                        <asp:CommandField ButtonType="Button" CancelText="Cancelar" ControlStyle-CssClass="btn btn-danger btn-block" DeleteText="Deletar" ShowDeleteButton="true" HeaderText="" />
+                        <asp:ButtonField ButtonType="Button" CommandName="Editar" ControlStyle-CssClass="btn btn-primary btn-block" HeaderText="" Text="Editar" />
+                    </Columns>
+                </asp:GridView>
+            </p>
+        </div>
+    </div>
+
+
 
     <div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
+        <div class="col-md-12">
             <p>
-                ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-            A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>
-                NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>
-                You can easily find a web hosting company that offers the right mix of features and price for your applications.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
+                Atividades Realizadas <a href="#" id="lnkAtividadesRealizadas" onclick="javascript:abrir();">+</a>
+
+                <div id="abrirGrid" style="display:none;">
+                    <asp:GridView runat="server" ID="grdToDoCompleto" DataKeyNames="IdToDo" AllowPaging="true"
+                        Width="100%" PageSize="50" GridLines="None" AutoGenerateColumns="false"
+                        OnRowCommand="grdToDoCompleto_RowCommand">
+                        <AlternatingRowStyle BackColor="#f1f1f1" />
+                        <HeaderStyle BackColor="#cccccc" />
+                        <RowStyle VerticalAlign="Middle" HorizontalAlign="Left" Font-Strikeout="true" />
+                        <Columns>
+                            <asp:ButtonField ButtonType="Image" ImageUrl="~/Images/checkbox_preenchido.png" CommandName="DesFeito" HeaderText="" Text="" />
+                            <asp:BoundField DataField="NomeToDo" HeaderText="Nome da Conta" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
             </p>
         </div>
     </div>
-
+    
 </asp:Content>

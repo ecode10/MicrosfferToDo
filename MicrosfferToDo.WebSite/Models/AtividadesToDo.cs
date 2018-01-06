@@ -4,12 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace MicrosfferToDo.Models
+namespace MicrosfferToDo.WebSite.Models
 {
-    /// <summary>
-    /// Classe que faz uma relação direta com as propriedades do banco de dados.
-    /// <author>Mauricio Junior</author>
-    /// </summary>
     public class AtividadesToDo
     {
         /// <summary>

@@ -484,7 +484,14 @@
         <member name="T:MicrosfferToDo.Controllers.AtividadesToDoController">
             <summary>
             Classe responsável pela comunicação com a tabela de Atividades ToDo do projeto
+            <author>Mauricio Junior</author>
             </summary>
+        </member>
+        <member name="M:MicrosfferToDo.Controllers.AtividadesToDoController.checkAutenticacao">
+            <summary>
+            Método que verifica a autorização do token
+            </summary>
+            <returns>IHttpActionResult</returns>
         </member>
         <member name="M:MicrosfferToDo.Controllers.AtividadesToDoController.GetAtividadesToDo">
             <summary>
@@ -521,16 +528,38 @@
             <param name="id">long</param>
             <returns>IHttpActionResult</returns>
         </member>
+        <member name="M:MicrosfferToDo.Controllers.AtividadesToDoController.GetAtividadesByStatus(System.String)">
+            <summary>
+            Método que busca as atividades pelo status
+            Completo: 1
+            Não completo: 0
+            </summary>
+            <param name="id">string</param>
+            <returns>IEnumerable</returns>
+        </member>
         <member name="M:MicrosfferToDo.Controllers.AtividadesToDoController.Dispose(System.Boolean)">
             <summary>
             Método que faz o dispose
             </summary>
             <param name="disposing"></param>
         </member>
+        <member name="T:MicrosfferToDo.Controllers.AuthHeader">
+            <summary>
+            Classe responsável pela autenticação do token do sistema
+            </summary>
+        </member>
+        <member name="M:MicrosfferToDo.Controllers.AuthHeader.autorizarToken(System.Net.Http.Headers.HttpRequestHeaders)">
+            <summary>
+            Método que autentica o token do sistema.
+            </summary>
+            <param name="req">HttpRequestHeaders</param>
+            <returns>HttpStatusCode</returns>
+        </member>
         <member name="T:MicrosfferToDo.DAL.DBContextToDo">
             <summary>
             Classe que serve para o contexto do web api
             Trabalha a conexão com o banco através do nome da base
+            <author>Mauricio Junior</author>
             </summary>
         </member>
         <member name="M:MicrosfferToDo.DAL.DBContextToDo.#ctor">
@@ -547,6 +576,37 @@
         <member name="T:MicrosfferToDo.Models.AtividadesToDo">
             <summary>
             Classe que faz uma relação direta com as propriedades do banco de dados.
+            <author>Mauricio Junior</author>
+            </summary>
+        </member>
+        <member name="P:MicrosfferToDo.Models.AtividadesToDo.IdTodo">
+            <summary>
+            Id chave da atividade
+            </summary>
+        </member>
+        <member name="P:MicrosfferToDo.Models.AtividadesToDo.NomeTodo">
+            <summary>
+            Nome da atividade
+            </summary>
+        </member>
+        <member name="P:MicrosfferToDo.Models.AtividadesToDo.DescricaoTodo">
+            <summary>
+            Descricao da atividade
+            </summary>
+        </member>
+        <member name="P:MicrosfferToDo.Models.AtividadesToDo.DataTodo">
+            <summary>
+            Data da atividade
+            </summary>
+        </member>
+        <member name="P:MicrosfferToDo.Models.AtividadesToDo.HoraTodo">
+            <summary>
+            Horário da atividade
+            </summary>
+        </member>
+        <member name="P:MicrosfferToDo.Models.AtividadesToDo.CompletoTodo">
+            <summary>
+            Status da atividade
             </summary>
         </member>
     </members>

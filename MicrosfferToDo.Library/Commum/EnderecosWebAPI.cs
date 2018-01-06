@@ -14,6 +14,11 @@ namespace MicrosfferToDo.Library.Commum
     /// </summary>
     public static class EnderecosWebAPI
     {
-        public const string _enderecoBase = "http://localhost";
+        public const string _enderecoBase = "http://localhost:50307/";
+        public const string _post = "api/AtividadesToDo";
+        public const string _get = "api/AtividadesToDo";
+        public const string _delete = "api/AtividadesToDo/"; //{Id}
+        public const string _put = "api/AtividadesToDo/"; //{Id}
+        public const string _getByStatus = "api/AtividadesToDo/Status/"; //{Id} 0 ou 1
     }
 }

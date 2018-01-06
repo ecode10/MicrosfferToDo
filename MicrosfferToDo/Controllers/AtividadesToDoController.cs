@@ -10,6 +10,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MicrosfferToDo.DAL;
 using MicrosfferToDo.Models;
+using System.Text;
+using System.Data.SqlClient;
 
 namespace MicrosfferToDo.Controllers
 {
@@ -89,7 +91,7 @@ namespace MicrosfferToDo.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != atividadesToDo.idTodo)
+            if (id != atividadesToDo.IdTodo)
             {
                 return BadRequest();
             }
@@ -135,7 +137,7 @@ namespace MicrosfferToDo.Controllers
             db.AtividadesToDo.Add(atividadesToDo);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = atividadesToDo.idTodo }, atividadesToDo);
+            return CreatedAtRoute("DefaultApi", new { id = atividadesToDo.IdTodo }, atividadesToDo);
         }
 
         /// <summary>
@@ -163,35 +165,40 @@ namespace MicrosfferToDo.Controllers
         }
 
 
-        //[Route("api/Dados/Report/{id}")]
-        //public IEnumerable<Dados> GetDadosReport(string id)
-        //{
-        //    //método que verifica a autorizacao do usuário
-        //    GetAutorizacaoUsuario();
+        /// <summary>
+        /// Método que busca as atividades pelo status
+        /// Completo: 1
+        /// Não completo: 0
+        /// </summary>
+        /// <param name="id">string</param>
+        /// <returns>IEnumerable</returns>
+        [Route("api/AtividadesToDo/Status/{id}")]
+        public IEnumerable<AtividadesToDo> GetAtividadesByStatus(string id)
+        {
+            //método que verifica a autorizacao do sistema
+            checkAutenticacao();
 
-        //    StringBuilder str = new StringBuilder();
-        //    str.Append(@"SELECT IdDados, Data, Valor, Titulo, Descricao, Tipo, Tags, IdUsuario, Dados.IdFontePagadora, FontePagadora.DescricaoFontePagadora, Dados.IdConta
-        //                        FROM Dados 
-        //                INNER JOIN FontePagadora ON Dados.IdFontePagadora = FontePagadora.IdFontePagadora
-        //                WHERE IdUsuario = @idUsuario ");
+            StringBuilder str = new StringBuilder();
+            str.Append(@"SELECT
+                            IdToDo, NomeToDo, DescricaoToDo, DataToDo, HoraToDo, CompletoToDo
+                         FROM
+                            AtividadesToDo
+                        WHERE CompletoToDo = @id ");
 
-        //    //SqlCommand dbCommand = new SqlCommand(str.ToString());
+            IDataParameter _completoParameter = new SqlParameter();
+            _completoParameter.DbType = DbType.Int32;
+            _completoParameter.ParameterName = "@id";
+            _completoParameter.Value = int.Parse(id);
+            _completoParameter.SourceColumn = "CompletoToDo";
 
-        //    IDataParameter idUs = new SqlParameter();
-        //    idUs.DbType = DbType.Int64;
-        //    idUs.ParameterName = "@idUsuario";
-        //    idUs.Value = int.Parse(id);
-        //    idUs.SourceColumn = "IdUsuario";
-        //    //dbCommand.Parameters.Add(email1);
+            var resultado = db.Database.SqlQuery<AtividadesToDo>(str.ToString(),
+                _completoParameter).AsEnumerable();
 
-        //    var resultado = db.Database.SqlQuery<Dados>(str.ToString(),
-        //        idUs).AsEnumerable();
+            if (resultado == null)
+                return null;
 
-        //    if (resultado == null)
-        //        return null;
-
-        //    return resultado;
-        //}
+            return resultado;
+        }
 
         /// <summary>
         /// Método que faz o dispose
@@ -208,7 +215,7 @@ namespace MicrosfferToDo.Controllers
 
         private bool AtividadesToDoExists(long id)
         {
-            return db.AtividadesToDo.Count(e => e.idTodo == id) > 0;
+            return db.AtividadesToDo.Count(e => e.IdTodo == id) > 0;
         }
     }
 }

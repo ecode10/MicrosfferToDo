@@ -9,5 +9,6 @@ namespace MicrosfferToDo.Library.Commum
     public static class TokenWebAPI
     {
         public const string _publicToken = "561d1cc4-c7b5-431e-94a7-e0c2ed9a8d2c";
+        public const string _pwd = "micr@$ffer.T@D@";
     }
 }
