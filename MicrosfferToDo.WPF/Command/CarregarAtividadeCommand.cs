@@ -64,7 +64,7 @@ namespace MicrosfferToDo.WPF.Command
                 ObservableCollection<AtividadesToDo> list = new ObservableCollection<AtividadesToDo>(_atividadesTodo);
                 _todoViewModel.ListDeAtividadeToDo = list;
                 
-                Console.Out.WriteLine("teste");
+                //Console.Out.WriteLine("teste");
                 //Response.Redirect("Default?guid=" + Guid.NewGuid() + "&id=sucesso");
             }
             //else

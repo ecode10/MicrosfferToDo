@@ -19,7 +19,7 @@
 
         <DataGrid ItemsSource="{Binding Source=ListAtividadeToDo}" x:Name="dtgListaAtividades" AutoGenerateColumns="False" Margin="23,153,19,17.8">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding NomeTodo}" IsReadOnly="True" Header="Nome" Width="100" />
+                <DataGridTextColumn Binding="{Binding NomeTodo}" IsReadOnly="True" Header="Nome" Width="300" />
             </DataGrid.Columns>
         </DataGrid>
         <Label x:Name="lblAtividadesToDo" Content="Entre com sua atividade" Margin="82.343,8,67,0" VerticalAlignment="Top" FontSize="26.667" FontWeight="Bold" FontFamily="Book Antiqua"/>
