@@ -168,6 +168,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\angular-messages.js" />
+    <Content Include="Scripts\angular.js" />
     <Content Include="Images\checkbox_preenchido.png" />
     <Content Include="Images\checkbox_vazio.png" />
     <Content Include="Content\bootstrap.css" />

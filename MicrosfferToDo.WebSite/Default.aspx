@@ -3,10 +3,14 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <script>
+        /*
+            Função local para abrir e fechar as atividades realizadas
+            A função também muda o texto do link de + para -
+        */
         function abrir() {
             
-            var doc = document.getElementById("abrirGrid");
-            var lnk = document.getElementById("lnkAtividadesRealizadas");
+            var doc = document.getElementById("abrirGrid"); //div
+            var lnk = document.getElementById("lnkAtividadesRealizadas"); //link href
 
             if (lnk.innerText == "+") {
                 doc.style.display = '';
@@ -26,9 +30,11 @@
     <div class="jumbotron">
         
         <h3>Microsffer ToDo</h3>
-        <asp:TextBox runat="server" ID="txtTituloToDo" CssClass="form-control" placeholder="Digite a atividade" />
-        <asp:Button Text="Enviar" CssClass="btn btn-primary btn-block" OnClick="btnEnviar_Click" ID="btnEnviar" runat="server" />
-        <asp:Button Text="Editar" Visible="false" CssClass="btn btn-primary btn-block" OnClick="btnEditar_Click" ID="btnEditar" runat="server" />
+        <asp:TextBox runat="server" ValidationGroup="atividade" ID="txtTituloToDo" CssClass="form-control" placeholder="Digite a atividade" />
+        <asp:RequiredFieldValidator ValidationGroup="atividade" Display="Dynamic" ForeColor="Red" ErrorMessage="Por favor, digite a atividade." ControlToValidate="txtTituloToDo" runat="server" />
+
+        <asp:Button Text="Enviar" ValidationGroup="atividade" CssClass="btn btn-primary btn-block" OnClick="btnEnviar_Click" ID="btnEnviar" runat="server" />
+        <asp:Button Text="Editar" ValidationGroup="atividade" Visible="false" CssClass="btn btn-primary btn-block" OnClick="btnEditar_Click" ID="btnEditar" runat="server" />
 
     </div>
 

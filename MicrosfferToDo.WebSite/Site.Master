@@ -50,6 +50,10 @@
         
     </style>
 
+    <!-- angular -->
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-messages.js"></script>
+
 </head>
 <body>
     <form runat="server">

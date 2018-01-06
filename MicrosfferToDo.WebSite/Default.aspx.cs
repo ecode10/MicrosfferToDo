@@ -60,24 +60,27 @@ namespace MicrosfferToDo.WebSite
 
         protected void btnEnviar_Click(object sender, EventArgs e)
         {
-            var client = HttpClientRequest.getClient();
-
-            //preenche os dados
-            var _atividades = new AtividadesToDo()
+            if (Page.IsValid)
             {
-                NomeTodo = txtTituloToDo.Text,
-                CompletoTodo = 0
-            };
+                var client = HttpClientRequest.getClient();
 
-            HttpResponseMessage response = client.PostAsJsonAsync(EnderecosWebAPI._post, _atividades).Result;//client.GetAsync(EnderecosWebAPI._enderecoBase + EnderecosWebAPI._post).Result;
-            Uri envioUri = response.Headers.Location;
+                //preenche os dados
+                var _atividades = new AtividadesToDo()
+                {
+                    NomeTodo = txtTituloToDo.Text,
+                    CompletoTodo = 0
+                };
 
-            if (response.IsSuccessStatusCode)
-            {
-                Response.Redirect("Default?guid=" + Guid.NewGuid() + "&id=sucesso");
+                HttpResponseMessage response = client.PostAsJsonAsync(EnderecosWebAPI._post, _atividades).Result;//client.GetAsync(EnderecosWebAPI._enderecoBase + EnderecosWebAPI._post).Result;
+                Uri envioUri = response.Headers.Location;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Response.Redirect("Default?guid=" + Guid.NewGuid() + "&id=sucesso");
+                }
+                else
+                    Response.Write(response.StatusCode.ToString() + " - " + response.ReasonPhrase.ToString());
             }
-            else
-                Response.Write(response.StatusCode.ToString() + " - " + response.ReasonPhrase.ToString());
         }
 
         protected void grdToDo_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -108,7 +111,7 @@ namespace MicrosfferToDo.WebSite
                 //preenche os dados
                 var _atividades = new AtividadesToDo()
                 {
-                    NomeTodo = grdToDo.Rows[index].Cells[1].Text,
+                    NomeTodo = HTMLToText.StripHTML(grdToDo.Rows[index].Cells[1].Text, true),
                     CompletoTodo = 1,
                     IdTodo = int.Parse(chave)
                 };
@@ -147,7 +150,7 @@ namespace MicrosfferToDo.WebSite
                 //preenche os dados
                 var _atividades = new AtividadesToDo()
                 {
-                    NomeTodo = grdToDoCompleto.Rows[index].Cells[1].Text,
+                    NomeTodo = HTMLToText.StripHTML(grdToDoCompleto.Rows[index].Cells[1].Text, true),
                     CompletoTodo = 0,
                     IdTodo = int.Parse(chave)
                 };
@@ -164,24 +167,26 @@ namespace MicrosfferToDo.WebSite
         }
         protected void btnEditar_Click(object sender, EventArgs e)
         {
-            var client = HttpClientRequest.getClient();
-
-            //preenche os dados
-            var _atividades = new AtividadesToDo()
+            if (Page.IsValid)
             {
-                NomeTodo = txtTituloToDo.Text,
-                CompletoTodo = 0,
-                IdTodo = int.Parse(hdIdToDo.Value)
-            };
+                var client = HttpClientRequest.getClient();
 
-            HttpResponseMessage response = client.PutAsJsonAsync(EnderecosWebAPI._put + hdIdToDo.Value.ToString(), _atividades).Result;
-            Uri envioUri = response.Headers.Location;
+                //preenche os dados
+                var _atividades = new AtividadesToDo()
+                {
+                    NomeTodo = HTMLToText.StripHTML(txtTituloToDo.Text, true),
+                    CompletoTodo = 0,
+                    IdTodo = int.Parse(hdIdToDo.Value)
+                };
 
-            if (response.IsSuccessStatusCode)
-                Response.Redirect("Default?guid=" + Guid.NewGuid() + "&id=AtualizadoSucesso");
-            else
-                Response.Write(response.StatusCode.ToString() + " - " + response.ReasonPhrase.ToString());
+                HttpResponseMessage response = client.PutAsJsonAsync(EnderecosWebAPI._put + hdIdToDo.Value.ToString(), _atividades).Result;
+                Uri envioUri = response.Headers.Location;
 
+                if (response.IsSuccessStatusCode)
+                    Response.Redirect("Default?guid=" + Guid.NewGuid() + "&id=AtualizadoSucesso");
+                else
+                    Response.Write(response.StatusCode.ToString() + " - " + response.ReasonPhrase.ToString());
+            }
 
         }
     }
