@@ -80,6 +80,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Command\AtualizarAtividadeCommand.cs" />
+    <Compile Include="Command\CancelarEdicaoCommand.cs" />
     <Compile Include="Command\CarregarAtividadeCommand.cs" />
     <Compile Include="Command\DeletarAtividadeCommand.cs" />
     <Compile Include="Command\EditarAtividadeCommand.cs" />

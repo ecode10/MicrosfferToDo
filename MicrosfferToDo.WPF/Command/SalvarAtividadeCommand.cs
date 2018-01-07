@@ -72,8 +72,8 @@ namespace MicrosfferToDo.WPF.Command
 
                 if (response.IsSuccessStatusCode)
                 {
-                    //MessageBox
-                    //Response.Redirect("Default?guid=" + Guid.NewGuid() + "&id=sucesso");
+                    CarregarAtividadeCommand _carr = new CarregarAtividadeCommand(_todoViewModel);
+                    _carr.Execute(null);
                 }
             }
             else

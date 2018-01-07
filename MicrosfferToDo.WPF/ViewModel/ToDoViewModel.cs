@@ -114,6 +114,8 @@ namespace MicrosfferToDo.WPF.ViewModel
         public ICommand EditarAtividadeCommand { get; set; }
 
         //public ICommand AtualizarAtividadeCommand { get; set; }
+
+        public ICommand CancelarEdicaoCommand { get; set; }
         #endregion
 
         #region "##### Inicia a ViewModel "
@@ -127,6 +129,7 @@ namespace MicrosfferToDo.WPF.ViewModel
             this.CarregarAtividadeCommand = new CarregarAtividadeCommand(this);
             this.DeletarAtividadeCommand = new DeletarAtividadeCommand(this);
             this.EditarAtividadeCommand = new EditarAtividadeCommand(this);
+            this.CancelarEdicaoCommand = new CancelarEdicaoCommand(this);
 
             CarregarAtividadeCommand.Execute(null);
 

@@ -4,7 +4,6 @@ using MicrosfferToDo.WPF.Model;
 using MicrosfferToDo.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -13,7 +12,7 @@ using System.Windows.Input;
 
 namespace MicrosfferToDo.WPF.Command
 {
-    public class DeletarAtividadeCommand : ICommand
+    public class CancelarEdicaoCommand : ICommand
     {
 
         #region " ### campos " 
@@ -24,7 +23,7 @@ namespace MicrosfferToDo.WPF.Command
 
         #region "#### Construtor " 
 
-        public DeletarAtividadeCommand(ToDoViewModel _viewModel)
+        public CancelarEdicaoCommand(ToDoViewModel _viewModel)
         {
             _todoViewModel = _viewModel;
         }
@@ -57,19 +56,8 @@ namespace MicrosfferToDo.WPF.Command
         /// </summary>
         public void Execute(object parameter)
         {
-            var client = HttpClientRequest.getClient();
-
-            HttpResponseMessage response = client.DeleteAsync(EnderecosWebAPI._delete+ _todoViewModel.Atividade.IdTodo).Result;
-            Uri envioUri = response.Headers.Location;
-
-            if (response.IsSuccessStatusCode)
-            {
-                CarregarAtividadeCommand _carr = new CarregarAtividadeCommand(_todoViewModel);
-                _carr.Execute(null);
-
-                _todoViewModel.IdTodo = 0;
-                _todoViewModel.NomeTodo = string.Empty;
-            }
+            _todoViewModel.IdTodo = 0;
+            _todoViewModel.NomeTodo = string.Empty;
         }
         #endregion
     }
