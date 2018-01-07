@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace MicrosfferToDo.WPF.Command
 {
-    public class SalvarAtividadeCommand : ICommand
+    public class AtualizarAtividadeCommand : ICommand
     {
 
         #region " ### campos " 
@@ -23,7 +23,7 @@ namespace MicrosfferToDo.WPF.Command
 
         #region "#### Construtor " 
 
-        public SalvarAtividadeCommand(ToDoViewModel _viewModel)
+        public AtualizarAtividadeCommand(ToDoViewModel _viewModel)
         {
             _todoViewModel = _viewModel;
         }
@@ -56,33 +56,24 @@ namespace MicrosfferToDo.WPF.Command
         /// </summary>
         public void Execute(object parameter)
         {
-            if (_todoViewModel.IdTodo == 0)
+            var client = HttpClientRequest.getClient();
+
+            //preenche os dados
+            var _atividades = new AtividadeToDo()
             {
-                var client = HttpClientRequest.getClient();
+                NomeTodo = _todoViewModel.NomeTodo,
+                CompletoTodo = 0,
+                IdTodo = _todoViewModel.IdTodo
+            };
 
-                //preenche os dados
-                var _atividades = new AtividadeToDo()
-                {
-                    NomeTodo = _todoViewModel.NomeTodo,
-                    CompletoTodo = 0
-                };
+            HttpResponseMessage response = client.PutAsJsonAsync(EnderecosWebAPI._put + _todoViewModel.IdTodo, _atividades).Result;
+            Uri envioUri = response.Headers.Location;
 
-                HttpResponseMessage response = client.PostAsJsonAsync(EnderecosWebAPI._post, _atividades).Result;
-                Uri envioUri = response.Headers.Location;
-
-                if (response.IsSuccessStatusCode)
-                {
-                    //MessageBox
-                    //Response.Redirect("Default?guid=" + Guid.NewGuid() + "&id=sucesso");
-                }
-            }
-            else
+            if (response.IsSuccessStatusCode)
             {
-                AtualizarAtividadeCommand _atualiza = new AtualizarAtividadeCommand(_todoViewModel);
-                _atualiza.Execute(null);
+                CarregarAtividadeCommand _carregar = new CarregarAtividadeCommand(_todoViewModel);
+                _carregar.Execute(null);
             }
-
-
             //else
             //Response.Write(response.StatusCode.ToString() + " - " + response.ReasonPhrase.ToString());
 
