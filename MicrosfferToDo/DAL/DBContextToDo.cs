@@ -26,7 +26,7 @@ namespace MicrosfferToDo.DAL
         /// <summary>
         /// Método da convenção para não deixar o nome da tabela ficar no plural
         /// </summary>
-        /// <param name="modelBuilder"></param>
+        /// <param name="modelBuilder">DbModelBuilder</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -34,6 +34,9 @@ namespace MicrosfferToDo.DAL
             modelBuilder.Conventions.Remove<PluralizingEntitySetNameConvention>();
         }
 
+        /// <summary>
+        /// Nome da tabela do banco de dados criada dinamicamente
+        /// </summary>
         public System.Data.Entity.DbSet<MicrosfferToDo.Models.AtividadesToDo> AtividadesToDo { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace MicrosfferToDo.Controllers
             string _token = string.Empty;
             string _pwd = string.Empty;
 
+            //verifica se contem as duas tags no header para atribuir os valores
             if (headers.Contains("token") && headers.Contains("pwd"))
             {
                 _token = headers.GetValues("token").First();
@@ -32,6 +33,7 @@ namespace MicrosfferToDo.Controllers
             
             try
             {
+                //verifica se os dados atribuídos são iguais ao da classe
                 if (_token.Equals(MicrosfferToDo.Library.Commum.TokenWebAPI._publicToken) &&
                     _pwd.Equals(MicrosfferToDo.Library.Commum.TokenWebAPI._pwd))
                     return HttpStatusCode.Accepted;

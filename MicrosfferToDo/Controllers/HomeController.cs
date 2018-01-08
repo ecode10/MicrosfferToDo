@@ -10,7 +10,7 @@ namespace MicrosfferToDo.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "Microsffer ToDo";
 
             return View();
         }

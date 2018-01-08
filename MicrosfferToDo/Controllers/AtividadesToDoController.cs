@@ -21,7 +21,16 @@ namespace MicrosfferToDo.Controllers
     /// </summary>
     public class AtividadesToDoController : ApiController
     {
+        /// <summary>
+        /// Conexto privado
+        /// </summary>
         private DBContextToDo db = new DBContextToDo();
+
+        /// <summary>
+        /// Adicionando contexto publico para utilização nos métodos
+        /// Reutilização
+        /// </summary>
+        public DBContextToDo Db { get => db; set => db = value; }
 
         /// <summary>
         /// Método que verifica a autorização do token
@@ -48,7 +57,7 @@ namespace MicrosfferToDo.Controllers
             //método que verifica a autorizacao do sistema
             checkAutenticacao();
 
-            return db.AtividadesToDo;
+            return Db.AtividadesToDo;
         }
 
         /// <summary>
@@ -63,7 +72,7 @@ namespace MicrosfferToDo.Controllers
             //método que verifica a autorizacao do sistema
             checkAutenticacao();
 
-            AtividadesToDo atividadesToDo = db.AtividadesToDo.Find(id);
+            AtividadesToDo atividadesToDo = Db.AtividadesToDo.Find(id);
             if (atividadesToDo == null)
             {
                 return NotFound();
@@ -96,11 +105,11 @@ namespace MicrosfferToDo.Controllers
                 return BadRequest();
             }
 
-            db.Entry(atividadesToDo).State = EntityState.Modified;
+            Db.Entry(atividadesToDo).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                Db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -134,8 +143,8 @@ namespace MicrosfferToDo.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.AtividadesToDo.Add(atividadesToDo);
-            db.SaveChanges();
+            Db.AtividadesToDo.Add(atividadesToDo);
+            Db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = atividadesToDo.IdTodo }, atividadesToDo);
         }
@@ -152,14 +161,14 @@ namespace MicrosfferToDo.Controllers
             //método que verifica a autorizacao do sistema
             checkAutenticacao();
 
-            AtividadesToDo atividadesToDo = db.AtividadesToDo.Find(id);
+            AtividadesToDo atividadesToDo = Db.AtividadesToDo.Find(id);
             if (atividadesToDo == null)
             {
                 return NotFound();
             }
 
-            db.AtividadesToDo.Remove(atividadesToDo);
-            db.SaveChanges();
+            Db.AtividadesToDo.Remove(atividadesToDo);
+            Db.SaveChanges();
 
             return Ok(atividadesToDo);
         }
@@ -191,7 +200,7 @@ namespace MicrosfferToDo.Controllers
             _completoParameter.Value = int.Parse(id);
             _completoParameter.SourceColumn = "CompletoToDo";
 
-            var resultado = db.Database.SqlQuery<AtividadesToDo>(str.ToString(),
+            var resultado = Db.Database.SqlQuery<AtividadesToDo>(str.ToString(),
                 _completoParameter).AsEnumerable();
 
             if (resultado == null)
@@ -208,14 +217,14 @@ namespace MicrosfferToDo.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                Db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool AtividadesToDoExists(long id)
         {
-            return db.AtividadesToDo.Count(e => e.IdTodo == id) > 0;
+            return Db.AtividadesToDo.Count(e => e.IdTodo == id) > 0;
         }
     }
 }
