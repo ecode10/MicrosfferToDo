@@ -14,7 +14,8 @@ namespace MicrosfferToDo.Library.Commum
     /// </summary>
     public static class EnderecosWebAPI
     {
-        public const string _enderecoBase = "http://localhost:50307/";
+        //constantes utilizadas nos outros projetos WebSite, Web API e WPF
+        public const string _enderecoBase = "http://localhost:50307/"; //mudar o endereço base do Web API
         public const string _post = "api/AtividadesToDo";
         public const string _get = "api/AtividadesToDo";
         public const string _delete = "api/AtividadesToDo/"; //{Id}

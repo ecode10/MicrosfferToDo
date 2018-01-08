@@ -10,6 +10,9 @@ namespace MicrosfferToDo.Library.Util
 {
     /// <summary>
     /// Classe responsável por voltar a variavel de client HttpClient
+    /// <author>
+    /// Mauricio Junior
+    /// </author>
     /// </summary>
     public static class HttpClientRequest
     {
@@ -19,10 +22,14 @@ namespace MicrosfferToDo.Library.Util
         /// <returns>HttpClient</returns>
         public static HttpClient getClient()
         {
+            //chama a classe HTTP Client
             HttpClient client = new HttpClient();
+
+            //Atribui o endereço base
             client.BaseAddress = new Uri(EnderecosWebAPI._enderecoBase);
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
+            //Passa como parâmetro o token e senha no header
             client.DefaultRequestHeaders.Add("token", TokenWebAPI._publicToken);
             client.DefaultRequestHeaders.Add("pwd", TokenWebAPI._pwd);
 

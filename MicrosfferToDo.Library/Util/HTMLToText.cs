@@ -8,8 +8,18 @@ using System.Text.RegularExpressions;
 
 namespace MicrosfferToDo.Library.Util
 {
+    /// <summary>
+    /// Classe que converte HTML para Texto e vice versa
+    /// <author>Mauricio Junior</author>
+    /// </summary>
     public class HTMLToText
     {
+        /// <summary>
+        /// Método que pega string e transforma para HTML
+        /// </summary>
+        /// <param name="HTMLText">string</param>
+        /// <param name="decode">bool</param>
+        /// <returns>string</returns>
         public static string StripHTML(string HTMLText, bool decode = true)
         {
             Regex reg = new Regex("<[^>]+>", RegexOptions.IgnoreCase);
@@ -17,6 +27,11 @@ namespace MicrosfferToDo.Library.Util
             return decode ? HttpUtility.HtmlDecode(stripped) : stripped;
         }
 
+        /// <summary>
+        /// Método que conver documentos
+        /// </summary>
+        /// <param name="path">string</param>
+        /// <returns>string</returns>
         public static string Convert(string path)
         {
             HtmlDocument doc = new HtmlDocument();
@@ -28,6 +43,11 @@ namespace MicrosfferToDo.Library.Util
             return sw.ToString();
         }
 
+        /// <summary>
+        /// Método que converte para html
+        /// </summary>
+        /// <param name="html">string</param>
+        /// <returns>string</returns>
         public static string ConvertHtml(string html)
         {
             HtmlDocument doc = new HtmlDocument();
@@ -39,6 +59,11 @@ namespace MicrosfferToDo.Library.Util
             return sw.ToString();
         }
 
+        /// <summary>
+        /// Método privado utilizado pelos outros métodos
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="outText"></param>
         private static void ConvertContentTo(HtmlNode node, TextWriter outText)
         {
             foreach (HtmlNode subnode in node.ChildNodes)
@@ -47,13 +72,18 @@ namespace MicrosfferToDo.Library.Util
             }
         }
 
+        /// <summary>
+        /// Método que converte html para TextWriter
+        /// </summary>
+        /// <param name="node">HtmlNode</param>
+        /// <param name="outText">TextWriter</param>
         public static void ConvertTo(HtmlNode node, TextWriter outText)
         {
             string html;
             switch (node.NodeType)
             {
                 case HtmlNodeType.Comment:
-                    // don't output comments
+                    //nao tem comentários
                     break;
 
                 case HtmlNodeType.Document:
@@ -61,19 +91,19 @@ namespace MicrosfferToDo.Library.Util
                     break;
 
                 case HtmlNodeType.Text:
-                    // script and style must not be output
+                    // script e estilo não podem sair
                     string parentName = node.ParentNode.Name;
                     if ((parentName == "script") || (parentName == "style"))
                         break;
 
-                    // get text
+                    // pega o texto
                     html = ((HtmlTextNode)node).Text;
 
-                    // is it in fact a special closing node output as text?
+                    // especial que verifica se a saída é um texto
                     if (HtmlNode.IsOverlappedClosingElement(html))
                         break;
 
-                    // check the text is meaningful and not a bunch of whitespaces
+                    // verifica o texto
                     if (html.Trim().Length > 0)
                     {
                         outText.Write(HtmlEntity.DeEntitize(html));
@@ -84,7 +114,7 @@ namespace MicrosfferToDo.Library.Util
                     switch (node.Name)
                     {
                         case "p":
-                            // treat paragraphs as crlf
+                            // trata parágrafos com ENTER ou CTRL
                             outText.Write("\r\n");
                             break;
                     }
