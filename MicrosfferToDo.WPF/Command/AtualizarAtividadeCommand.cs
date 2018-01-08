@@ -14,25 +14,37 @@ namespace MicrosfferToDo.WPF.Command
 {
     public class AtualizarAtividadeCommand : ICommand
     {
-
+        /// <summary>
+        /// Campos da View Model
+        /// </summary>
         #region " ### campos " 
 
         private ToDoViewModel _todoViewModel;
 
         #endregion
 
+        /// <summary>
+        /// Construtor da classe
+        /// </summary>
+        /// <param name="_viewModel"></param>
         #region "#### Construtor " 
 
+        ///<summary>
+        /// Recebe os objetos da ViewModel e atribui para a propriedade privada da classe
+        /// </summary>
         public AtualizarAtividadeCommand(ToDoViewModel _viewModel)
         {
             _todoViewModel = _viewModel;
         }
         #endregion
 
+        ///<summary>
+        /// Membros da interface ICommand
+        /// </summary>
         #region ICommand Members
 
         /// <summary>
-        /// 
+        /// Verifica a propriedade para habilitar o botão ou não
         /// </summary>
         public bool CanExecute(object parameter)
         {
@@ -43,7 +55,7 @@ namespace MicrosfferToDo.WPF.Command
         }
 
         /// <summary>
-        /// Actions to take when CanExecute() changes.
+        /// Ação que verifica se pode executar CanExecute(object).
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
@@ -52,13 +64,16 @@ namespace MicrosfferToDo.WPF.Command
         }
 
         /// <summary>
-        /// Inclui um novo clube ou altera um existente.
+        /// Executa a alteração dos dados de acordo com o que foi recebido da View
+        /// Chama a Web API passando os parâmetros
         /// </summary>
         public void Execute(object parameter)
         {
+            //Chama a classe Request
+            //Dentro da classe tem o Token e a Senha
             var client = HttpClientRequest.getClient();
 
-            //preenche os dados
+            //preenche os dados da classe para passar para a WebAPI
             var _atividades = new AtividadeToDo()
             {
                 NomeTodo = _todoViewModel.NomeTodo,
@@ -66,40 +81,16 @@ namespace MicrosfferToDo.WPF.Command
                 IdTodo = _todoViewModel.IdTodo
             };
 
+            //Chama a classe PUT passando a constante, id e os dados
             HttpResponseMessage response = client.PutAsJsonAsync(EnderecosWebAPI._put + _todoViewModel.IdTodo, _atividades).Result;
             Uri envioUri = response.Headers.Location;
 
+            //Se a resposta do Web Api retornar com sucesso, carrega os dados novamente
             if (response.IsSuccessStatusCode)
             {
                 CarregarAtividadeCommand _carregar = new CarregarAtividadeCommand(_todoViewModel);
                 _carregar.Execute(null);
             }
-            //else
-            //Response.Write(response.StatusCode.ToString() + " - " + response.ReasonPhrase.ToString());
-
-            //var clube = new ClubeDeFutebol();
-            //clube.Nome = m_ViewModel.Nome;
-            //clube.Tecnico = m_ViewModel.Tecnico;
-            //clube.IDEstado = m_ViewModel.Estado;
-
-            //var clubeRepository = new ClubeRepository(m_ViewModel);
-
-            ////Valida se é uma edição ou inclusão de novo registro
-            //if (m_ViewModel.IDClube == 0)
-            //{
-            //    clube.IdClube = m_ViewModel.ListClubesDeFutebol.Count + 1;
-            //    clubeRepository.Insert(clube);
-            //}
-            //else
-            //{
-            //    clube.IdClube = m_ViewModel.IDClube;
-            //    clubeRepository.Update(clube);
-            //}
-
-            //m_ViewModel.IDClube = 0;
-            //m_ViewModel.Nome = string.Empty;
-            //m_ViewModel.Tecnico = string.Empty;
-            //m_ViewModel.Estado = null;
         }
         #endregion
     }

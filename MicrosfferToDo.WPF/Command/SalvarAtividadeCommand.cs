@@ -14,25 +14,35 @@ namespace MicrosfferToDo.WPF.Command
 {
     public class SalvarAtividadeCommand : ICommand
     {
-
-        #region " ### campos " 
+        /// <summary>
+        /// Campos privados
+        /// </summary>
+        #region " ### Campos " 
 
         private ToDoViewModel _todoViewModel;
 
         #endregion
 
+        /// <summary>
+        /// Construtor da classe
+        /// </summary>
+        /// <param name="_viewModel"></param>
         #region "#### Construtor " 
 
         public SalvarAtividadeCommand(ToDoViewModel _viewModel)
         {
+            //atribui o que foi passado para a propriedade privada
             _todoViewModel = _viewModel;
         }
         #endregion
 
+        /// <summary>
+        /// Métodos membros da Interface ICommand
+        /// </summary>
         #region ICommand Members
 
         /// <summary>
-        /// 
+        /// Método pode executar se a propriedade nome for preenchida
         /// </summary>
         public bool CanExecute(object parameter)
         {
@@ -43,7 +53,7 @@ namespace MicrosfferToDo.WPF.Command
         }
 
         /// <summary>
-        /// Actions to take when CanExecute() changes.
+        /// Ações que podem acontecer de acordo com as mudanças.
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
@@ -52,63 +62,44 @@ namespace MicrosfferToDo.WPF.Command
         }
 
         /// <summary>
-        /// Inclui um novo clube ou altera um existente.
+        /// Executa
+        /// Chama a Web API para salvar / editar os dados preenchidos
+        /// Método utilizado para incluir ou editar
         /// </summary>
         public void Execute(object parameter)
         {
+            //Verifica se Id foi é igual a 0 para Salvar
             if (_todoViewModel.IdTodo == 0)
             {
+                //Chama o método para preparar para o Web API
+                //Token
+                //Password
                 var client = HttpClientRequest.getClient();
 
-                //preenche os dados
+                //preenche os dados da classe
                 var _atividades = new AtividadeToDo()
                 {
                     NomeTodo = _todoViewModel.NomeTodo,
                     CompletoTodo = 0
                 };
 
+                //Chama o Web API Post passando o endereço (constante) e a classe preenchida.
                 HttpResponseMessage response = client.PostAsJsonAsync(EnderecosWebAPI._post, _atividades).Result;
                 Uri envioUri = response.Headers.Location;
 
+                //se for com sucesso carrega os dados
                 if (response.IsSuccessStatusCode)
                 {
                     CarregarAtividadeCommand _carr = new CarregarAtividadeCommand(_todoViewModel);
                     _carr.Execute(null);
                 }
             }
-            else
+            else // igual a 1 para editar
             {
+                //chama a classe para atualizar
                 AtualizarAtividadeCommand _atualiza = new AtualizarAtividadeCommand(_todoViewModel);
                 _atualiza.Execute(null);
             }
-
-
-            //else
-            //Response.Write(response.StatusCode.ToString() + " - " + response.ReasonPhrase.ToString());
-
-            //var clube = new ClubeDeFutebol();
-            //clube.Nome = m_ViewModel.Nome;
-            //clube.Tecnico = m_ViewModel.Tecnico;
-            //clube.IDEstado = m_ViewModel.Estado;
-
-            //var clubeRepository = new ClubeRepository(m_ViewModel);
-
-            ////Valida se é uma edição ou inclusão de novo registro
-            //if (m_ViewModel.IDClube == 0)
-            //{
-            //    clube.IdClube = m_ViewModel.ListClubesDeFutebol.Count + 1;
-            //    clubeRepository.Insert(clube);
-            //}
-            //else
-            //{
-            //    clube.IdClube = m_ViewModel.IDClube;
-            //    clubeRepository.Update(clube);
-            //}
-
-            //m_ViewModel.IDClube = 0;
-            //m_ViewModel.Nome = string.Empty;
-            //m_ViewModel.Tecnico = string.Empty;
-            //m_ViewModel.Estado = null;
         }
         #endregion
     }

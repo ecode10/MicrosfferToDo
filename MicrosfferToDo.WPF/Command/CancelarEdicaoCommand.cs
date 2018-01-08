@@ -14,13 +14,19 @@ namespace MicrosfferToDo.WPF.Command
 {
     public class CancelarEdicaoCommand : ICommand
     {
-
-        #region " ### campos " 
+        /// <summary>
+        /// Campos da View Model
+        /// </summary>
+        #region " ### Campos da ViewModel " 
 
         private ToDoViewModel _todoViewModel;
 
         #endregion
 
+        /// <summary>
+        /// Construtor da Classe
+        /// </summary>
+        /// <param name="_viewModel"></param>
         #region "#### Construtor " 
 
         public CancelarEdicaoCommand(ToDoViewModel _viewModel)
@@ -29,10 +35,13 @@ namespace MicrosfferToDo.WPF.Command
         }
         #endregion
 
+        /// <summary>
+        /// Método da Interface ICommand
+        /// </summary>
         #region ICommand Members
 
         /// <summary>
-        /// 
+        /// Verifica se o campo nome está preenchido para habilitar
         /// </summary>
         public bool CanExecute(object parameter)
         {
@@ -43,7 +52,7 @@ namespace MicrosfferToDo.WPF.Command
         }
 
         /// <summary>
-        /// Actions to take when CanExecute() changes.
+        /// Ações que podem acontecer quando a ação muda
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
@@ -52,7 +61,7 @@ namespace MicrosfferToDo.WPF.Command
         }
 
         /// <summary>
-        /// Inclui um novo clube ou altera um existente.
+        /// Limpa os dados
         /// </summary>
         public void Execute(object parameter)
         {

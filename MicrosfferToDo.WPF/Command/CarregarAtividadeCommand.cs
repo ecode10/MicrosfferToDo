@@ -15,12 +15,20 @@ namespace MicrosfferToDo.WPF.Command
 {
     public class CarregarAtividadeCommand : ICommand
     {
-        #region " ### campos " 
+        /// <summary>
+        /// Propriedade privda contendo os campos da View
+        /// </summary>
+        #region " ### Campos da View " 
 
         private ToDoViewModel _todoViewModel;
 
         #endregion
 
+        /// <summary>
+        /// Construtor da classe
+        /// Atribui os dados para a propriedade privada
+        /// </summary>
+        /// <param name="_viewModel"></param>
         #region "#### Construtor " 
 
         public CarregarAtividadeCommand(ToDoViewModel _viewModel)
@@ -29,10 +37,13 @@ namespace MicrosfferToDo.WPF.Command
         }
         #endregion
 
+        /// <summary>
+        /// Membros da Interface Command
+        /// </summary>
         #region ICommand Members
 
         /// <summary>
-        /// 
+        /// Executa a limpeza da Lista
         /// </summary>
         public bool CanExecute(object parameter)
         {
@@ -40,7 +51,7 @@ namespace MicrosfferToDo.WPF.Command
         }
 
         /// <summary>
-        /// Actions to take when CanExecute() changes.
+        /// Ações que podem acontecer de acordo com alguma mudança
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
@@ -49,19 +60,25 @@ namespace MicrosfferToDo.WPF.Command
         }
 
         /// <summary>
-        /// Inclui um novo clube ou altera um existente.
+        /// Carrega a lista de dados vindos do Web Api
         /// </summary>
         public void Execute(object parameter)
         {
+            //Chama a classe de cliente
+            //Token e Password
             var client = HttpClientRequest.getClient();
 
+            //Pega os dados do Web Api baseado na consulta
             HttpResponseMessage response = client.GetAsync(EnderecosWebAPI._getByStatus+0).Result;
             Uri envioUri = response.Headers.Location;
 
+            //Se o retorno vier com sucesso, preenche a lista
             if (response.IsSuccessStatusCode)
             {
+                //pega o resultado dos dados e retorna para a variável
                 var _atividadesTodo = response.Content.ReadAsAsync<IEnumerable<AtividadeToDo>>().Result;
 
+                //Preenche a lista para retorno
                 ObservableCollection<AtividadeToDo> list = _todoViewModel.ListDeAtividadeToDo; //new ObservableCollection<AtividadeToDo>(_atividadesTodo);
                 list.Clear();
                 foreach (var item in _atividadesTodo)
@@ -74,37 +91,8 @@ namespace MicrosfferToDo.WPF.Command
                 }
 
                 _todoViewModel.ListDeAtividadeToDo = list;
-                
-                
-                //Console.Out.WriteLine("teste");
-                //Response.Redirect("Default?guid=" + Guid.NewGuid() + "&id=sucesso");
             }
-            //else
-            //Response.Write(response.StatusCode.ToString() + " - " + response.ReasonPhrase.ToString());
-
-            //var clube = new ClubeDeFutebol();
-            //clube.Nome = m_ViewModel.Nome;
-            //clube.Tecnico = m_ViewModel.Tecnico;
-            //clube.IDEstado = m_ViewModel.Estado;
-
-            //var clubeRepository = new ClubeRepository(m_ViewModel);
-
-            ////Valida se é uma edição ou inclusão de novo registro
-            //if (m_ViewModel.IDClube == 0)
-            //{
-            //    clube.IdClube = m_ViewModel.ListClubesDeFutebol.Count + 1;
-            //    clubeRepository.Insert(clube);
-            //}
-            //else
-            //{
-            //    clube.IdClube = m_ViewModel.IDClube;
-            //    clubeRepository.Update(clube);
-            //}
-
-            //m_ViewModel.IDClube = 0;
-            //m_ViewModel.Nome = string.Empty;
-            //m_ViewModel.Tecnico = string.Empty;
-            //m_ViewModel.Estado = null;
+            
         }
         #endregion
     }

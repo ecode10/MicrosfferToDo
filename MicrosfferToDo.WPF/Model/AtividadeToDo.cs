@@ -7,8 +7,15 @@ using System.Threading.Tasks;
 
 namespace MicrosfferToDo.WPF.Model
 {
+    /// <summary>
+    /// Classe responsável pela a atividade 
+    /// <author>Mauricio Junior</author>
+    /// </summary>
     public class AtividadeToDo : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Propriedade Notify que vincula a tela do MVVM
+        /// </summary>
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -21,13 +28,21 @@ namespace MicrosfferToDo.WPF.Model
 
         #endregion
 
-        
-
+        /// <summary>
+        /// Construtor da classe
+        /// </summary>
         #region "### Construtor "
         public AtividadeToDo() { }
         #endregion
 
+        /// <summary>
+        /// Propriedades utilizada da classe e da UI
+        /// </summary>
         #region "#### Propriedades "
+
+        /// <summary>
+        /// Id da Tabela de banco de dados
+        /// </summary>
         private Int64 _idTodo;
         public Int64 IdTodo
         {
@@ -42,6 +57,9 @@ namespace MicrosfferToDo.WPF.Model
             }
         }
 
+        /// <summary>
+        /// Nome da atividade postada pelo usuário
+        /// </summary>
         private string _nomeTodo;
         public string NomeTodo
         {
@@ -56,6 +74,11 @@ namespace MicrosfferToDo.WPF.Model
             }
         }
 
+        /// <summary>
+        /// Propriedade informando o status 
+        /// Completou 1 
+        /// Não completou 0
+        /// </summary>
         private int _completoTodo;
         public int CompletoTodo
         {

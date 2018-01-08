@@ -17,24 +17,35 @@ namespace MicrosfferToDo.WPF.Command
 {
     public class EditarAtividadeCommand : ICommand
     {
-        #region " ### campos " 
+        /// <summary>
+        /// Propriedade privada da ViewModel
+        /// </summary>
+        #region " ### Campos " 
 
         private ToDoViewModel _todoViewModel;
 
         #endregion
 
+        /// <summary>
+        /// Construtor da classe
+        /// </summary>
+        /// <param name="_viewModel">ToDoViewModel</param>
         #region "#### Construtor " 
 
         public EditarAtividadeCommand(ToDoViewModel _viewModel)
         {
+            //atribui os dados da View Model para a propriedade privada
             _todoViewModel = _viewModel;
         }
         #endregion
 
+        /// <summary>
+        /// Métodos membros da interface ICommand
+        /// </summary>
         #region ICommand Members
 
         /// <summary>
-        /// 
+        /// Método que pode ser executado se a propriedade for preenchida
         /// </summary>
         public bool CanExecute(object parameter)
         {
@@ -42,7 +53,7 @@ namespace MicrosfferToDo.WPF.Command
         }
 
         /// <summary>
-        /// Actions to take when CanExecute() changes.
+        /// Ações que podem acontecer de acordo com as mudanças.
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
@@ -51,7 +62,8 @@ namespace MicrosfferToDo.WPF.Command
         }
 
         /// <summary>
-        /// Inclui um novo clube ou altera um existente.
+        /// Executa
+        /// Atribui os dados para a View já preenchidos
         /// </summary>
         public void Execute(object parameter)
         {
