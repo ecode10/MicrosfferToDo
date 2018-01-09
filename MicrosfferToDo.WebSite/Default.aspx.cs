@@ -10,28 +10,43 @@ using MicrosfferToDo.WebSite.Models;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Net.Http;
+using MicrosfferToDo.WebSite.Controllers;
 
 namespace MicrosfferToDo.WebSite
 {
+    /// <summary>
+    /// Classe principal Web Site
+    /// <author>Mauricio Junior</author>
+    /// </summary>
     public partial class _Default : Page
     {
+        /// <summary>
+        /// Métodos de load da página
+        /// Load grid view
+        /// </summary>
+        #region "#### Métodos Load da página ####"
 
-
+        /// <summary>
+        /// Método load da página
+        /// Carrega o grid com as atividades completas e não completas
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                preencherGridCompleto();
-                preencherGridNaoCompleto();
+                preencherGridCompleto(); //grid com atividades não completas
+                preencherGridNaoCompleto(); //grid com a atividades completas
             }
         }
 
+        /// <summary>
+        /// Preenche o grid com as atividades completas
+        /// </summary>
         private void preencherGridCompleto()
         {
-            var client = HttpClientRequest.getClient();
-            
-            HttpResponseMessage response = client.GetAsync(EnderecosWebAPI._getByStatus + 1).Result;
-            Uri envioUri = response.Headers.Location;
+            HttpResponseMessage response = WebApiController.ConsultaWebApiByStatus(1);
 
             if (response.IsSuccessStatusCode)
             {
@@ -42,12 +57,13 @@ namespace MicrosfferToDo.WebSite
             }
         }
 
+        
+        /// <summary>
+        /// Preenche o grid com as atividades não completas
+        /// </summary>
         private void preencherGridNaoCompleto()
         {
-            var client = HttpClientRequest.getClient();
-
-            HttpResponseMessage response = client.GetAsync(EnderecosWebAPI._getByStatus + 0).Result;
-            Uri envioUri = response.Headers.Location;
+            HttpResponseMessage response = WebApiController.ConsultaWebApiByStatus(0);
 
             if (response.IsSuccessStatusCode)
             {
@@ -58,12 +74,50 @@ namespace MicrosfferToDo.WebSite
             }
         }
 
+        #endregion
+
+        /// <summary>
+        /// Métodos específicos dos botões (click)
+        /// </summary>
+        #region "#### Métodos específicos para os botões ####"
+
+        /// <summary>
+        /// Clicando no botão editar do formulário para atualizar o nome da atividade
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">EventArgs</param>
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (Page.IsValid)
+            {
+                //preenche os dados
+                var _atividades = new AtividadesToDo()
+                {
+                    NomeTodo = HTMLToText.StripHTML(txtTituloToDo.Text, true),
+                    CompletoTodo = 0,
+                    IdTodo = int.Parse(hdIdToDo.Value)
+                };
+
+                //atualiza os dados na web api
+                HttpResponseMessage response = WebApiController.AtualizarDadosWebApi(hdIdToDo.Value.ToString(), _atividades);
+
+                if (response.IsSuccessStatusCode)
+                    Response.Redirect("Default?guid=" + Guid.NewGuid() + "&id=AtualizadoSucesso");
+                else
+                    Response.Write(response.StatusCode.ToString() + " - " + response.ReasonPhrase.ToString());
+            }
+
+        }
+
+        /// <summary>
+        /// Inserindo os dados no Web Api via POST
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">EventArgs</param>
         protected void btnEnviar_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
             {
-                var client = HttpClientRequest.getClient();
-
                 //preenche os dados
                 var _atividades = new AtividadesToDo()
                 {
@@ -71,8 +125,8 @@ namespace MicrosfferToDo.WebSite
                     CompletoTodo = 0
                 };
 
-                HttpResponseMessage response = client.PostAsJsonAsync(EnderecosWebAPI._post, _atividades).Result;//client.GetAsync(EnderecosWebAPI._enderecoBase + EnderecosWebAPI._post).Result;
-                Uri envioUri = response.Headers.Location;
+                //inserindo dados na Web Api
+                HttpResponseMessage response = WebApiController.InserirDadosWebApi(_atividades);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -82,16 +136,25 @@ namespace MicrosfferToDo.WebSite
                     Response.Write(response.StatusCode.ToString() + " - " + response.ReasonPhrase.ToString());
             }
         }
+        #endregion
 
+
+        /// <summary>
+        /// Métodos específicos do GridView
+        /// </summary>
+        #region "#### Grid View ####"
+        /// <summary>
+        /// Deletando dados na Web Api
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">GridViewDeleteEventArgs</param>
         protected void grdToDo_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             //pegando o valor selecionado no grid
             string _IdToDo = this.grdToDo.DataKeys[e.RowIndex]["IdToDo"].ToString();
 
-            var client = HttpClientRequest.getClient();
-
-            HttpResponseMessage response = client.DeleteAsync(EnderecosWebAPI._delete + _IdToDo).Result;
-            Uri envioUri = response.Headers.Location;
+            //deleta os dados pela Web API
+            HttpResponseMessage response = WebApiController.DeletarDadosWebApi(_IdToDo);
 
             if (response.IsSuccessStatusCode)
             {
@@ -99,14 +162,21 @@ namespace MicrosfferToDo.WebSite
             }
         }
 
+
+        /// <summary>
+        /// Atualiza os dados pel Web Api
+        /// Ou Joga os dados para a tela
+        /// Apenas o status que altera
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">GridViewCommandEventArgs</param>
         protected void grdToDo_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            //clicar no botão feito (já foi realizado essa atividade)
             if (e.CommandName == "Feito")
             {
                 int index = int.Parse((string)e.CommandArgument);
                 string chave = grdToDo.DataKeys[index]["IdToDo"].ToString();
-
-                var client = HttpClientRequest.getClient();
 
                 //preenche os dados
                 var _atividades = new AtividadesToDo()
@@ -116,16 +186,18 @@ namespace MicrosfferToDo.WebSite
                     IdTodo = int.Parse(chave)
                 };
 
-                HttpResponseMessage response = client.PutAsJsonAsync(EnderecosWebAPI._put + chave, _atividades).Result;
-                Uri envioUri = response.Headers.Location;
+                //atualiza os dados preenchidos da classe Atividades no Web Api
+                HttpResponseMessage response = WebApiController.AtualizarDadosWebApi(chave, _atividades);
 
                 if (response.IsSuccessStatusCode)
                     Response.Redirect("Default?guid=" + Guid.NewGuid() + "&id=AtualizadoSucesso");
                 else
                     Response.Write(response.StatusCode.ToString() + " - " + response.ReasonPhrase.ToString());
-                
 
-            }else if (e.CommandName == "Editar")
+
+            }
+            //click no botão editar dentro do grid
+            else if (e.CommandName == "Editar")
             {
                 int index = int.Parse((string)e.CommandArgument);
                 string chave = grdToDo.DataKeys[index]["IdToDo"].ToString();
@@ -138,14 +210,17 @@ namespace MicrosfferToDo.WebSite
             }
         }
 
+        /// <summary>
+        /// Segunda grid com as atividades já realizadas
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">GridViewCommandEventArgs</param>
         protected void grdToDoCompleto_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "DesFeito")
             {
                 int index = int.Parse((string)e.CommandArgument);
                 string chave = grdToDoCompleto.DataKeys[index]["IdToDo"].ToString();
-
-                var client = HttpClientRequest.getClient();
 
                 //preenche os dados
                 var _atividades = new AtividadesToDo()
@@ -155,8 +230,8 @@ namespace MicrosfferToDo.WebSite
                     IdTodo = int.Parse(chave)
                 };
 
-                HttpResponseMessage response = client.PutAsJsonAsync(EnderecosWebAPI._put + chave, _atividades).Result;
-                Uri envioUri = response.Headers.Location;
+                //atualiza os dados no web api
+                HttpResponseMessage response = WebApiController.AtualizarDadosWebApi(chave, _atividades);
 
                 if (response.IsSuccessStatusCode)
                     Response.Redirect("Default?guid=" + Guid.NewGuid() + "&id=AtualizadoSucesso");
@@ -165,29 +240,9 @@ namespace MicrosfferToDo.WebSite
 
             }
         }
-        protected void btnEditar_Click(object sender, EventArgs e)
-        {
-            if (Page.IsValid)
-            {
-                var client = HttpClientRequest.getClient();
 
-                //preenche os dados
-                var _atividades = new AtividadesToDo()
-                {
-                    NomeTodo = HTMLToText.StripHTML(txtTituloToDo.Text, true),
-                    CompletoTodo = 0,
-                    IdTodo = int.Parse(hdIdToDo.Value)
-                };
+        #endregion
 
-                HttpResponseMessage response = client.PutAsJsonAsync(EnderecosWebAPI._put + hdIdToDo.Value.ToString(), _atividades).Result;
-                Uri envioUri = response.Headers.Location;
 
-                if (response.IsSuccessStatusCode)
-                    Response.Redirect("Default?guid=" + Guid.NewGuid() + "&id=AtualizadoSucesso");
-                else
-                    Response.Write(response.StatusCode.ToString() + " - " + response.ReasonPhrase.ToString());
-            }
-
-        }
     }
 }
