@@ -1,22 +1,38 @@
-﻿<div class="jumbotron">
+﻿<div class="well">
     <h1>Microsffer ToDo</h1>
-    <p class="lead">Web Api pronto para realizar as suas atividades online</p>
-    <p><a href="https://www.microsffer.com.br" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+ </div>
+ 
+
+<div ng-app="atividadesModulo">
+    <div ng-controller="listaController">
+
+        <input type="hidden" id="IdTodo" ng-model="atividadestodo.IdTodo" />
+        <input type="text" class="form-inline" ng-model="atividadestodo.NomeTodo" placeholder="Digite a atividade." id="nomeTodo" />
+        <button class="btn btn-primary" id="btnSalvar" ng-click="salvar(atividadestodo)">Salvar</button>
+
+
+
+        <table class="table">
+            <tr>
+                <th>Nome da Atividade</th>
+                <th>&nbsp;</th>
+            </tr>
+            <tr ng-repeat="ativ in atividadestodo">
+                <td>{{ativ.NomeTodo}}</td>
+                <td>
+                    <button class="btn btn-primary" ng-click="editarDados(ativ)">Editar</button>
+                    <button class="btn btn-danger" ng-click="deleta(ativ)">Deletar</button>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Primeiro passo</h2>
-        <p>Para consumir o web api, é necessário ter permissão, temos uma segurança para acesso.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Segundo passo</h2>
-        <p>Ler a documentação do Web Api.</p>
-        <p><a class="btn btn-default" href="/help">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Terceiro passo</h2>
-        <p>Consumir os dados através dos métodos expostos.</p>
-        <p><a class="btn btn-default" href="/help">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+
+@section scripts 
+{
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/AngularApp/js/atividades.js"></script>
+    <script src="~/AngularApp/js/listaController.js"></script>
+    <script src="~/AngularApp/js/atividadeService.js"></script>
+}

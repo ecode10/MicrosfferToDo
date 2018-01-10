@@ -487,6 +487,11 @@
             <author>Mauricio Junior</author>
             </summary>
         </member>
+        <member name="F:MicrosfferToDo.Controllers.AtividadesToDoController.Db">
+            <summary>
+            Conexto privado
+            </summary>
+        </member>
         <member name="M:MicrosfferToDo.Controllers.AtividadesToDoController.checkAutenticacao">
             <summary>
             Método que verifica a autorização do token
@@ -571,7 +576,12 @@
             <summary>
             Método da convenção para não deixar o nome da tabela ficar no plural
             </summary>
-            <param name="modelBuilder"></param>
+            <param name="modelBuilder">DbModelBuilder</param>
+        </member>
+        <member name="P:MicrosfferToDo.DAL.DBContextToDo.AtividadesToDo">
+            <summary>
+            Nome da tabela do banco de dados criada dinamicamente
+            </summary>
         </member>
         <member name="T:MicrosfferToDo.Models.AtividadesToDo">
             <summary>

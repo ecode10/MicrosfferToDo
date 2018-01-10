@@ -17,15 +17,22 @@
 
     <style>
         .jumbotron {
-            width: 400px;
+            /*width: 400px;*/
             text-align: center;
             margin-top: 20px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
+            /*margin-right: auto;*/
+            
         }
 
+        .input-group {
+            width: 250px;
+            margin: 0 auto;
+        }
+
+
         .row {
-            width: 400px;
+            /*width: 400px;*/
             text-align: center;
             margin-top: 20px;
             margin-left: auto;

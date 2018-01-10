@@ -24,13 +24,7 @@ namespace MicrosfferToDo.Controllers
         /// <summary>
         /// Conexto privado
         /// </summary>
-        private DBContextToDo db = new DBContextToDo();
-
-        /// <summary>
-        /// Adicionando contexto publico para utilização nos métodos
-        /// Reutilização
-        /// </summary>
-        public DBContextToDo Db { get => db; set => db = value; }
+        DBContextToDo Db = new DBContextToDo();
 
         /// <summary>
         /// Método que verifica a autorização do token
@@ -55,7 +49,7 @@ namespace MicrosfferToDo.Controllers
         public IQueryable<AtividadesToDo> GetAtividadesToDo()
         {
             //método que verifica a autorizacao do sistema
-            checkAutenticacao();
+            //checkAutenticacao();
 
             return Db.AtividadesToDo;
         }
@@ -70,7 +64,7 @@ namespace MicrosfferToDo.Controllers
         public IHttpActionResult GetAtividadesToDo(long id)
         {
             //método que verifica a autorizacao do sistema
-            checkAutenticacao();
+            //checkAutenticacao();
 
             AtividadesToDo atividadesToDo = Db.AtividadesToDo.Find(id);
             if (atividadesToDo == null)
@@ -93,7 +87,7 @@ namespace MicrosfferToDo.Controllers
         public IHttpActionResult PutAtividadesToDo(long id, AtividadesToDo atividadesToDo)
         {
             //método que verifica a autorizacao do sistema
-            checkAutenticacao();
+            //checkAutenticacao();
 
             if (!ModelState.IsValid)
             {
@@ -136,7 +130,7 @@ namespace MicrosfferToDo.Controllers
         public IHttpActionResult PostAtividadesToDo(AtividadesToDo atividadesToDo)
         {
             //método que verifica a autorizacao do sistema
-            checkAutenticacao();
+            //checkAutenticacao();
 
             if (!ModelState.IsValid)
             {
@@ -159,7 +153,7 @@ namespace MicrosfferToDo.Controllers
         public IHttpActionResult DeleteAtividadesToDo(long id)
         {
             //método que verifica a autorizacao do sistema
-            checkAutenticacao();
+            //checkAutenticacao();
 
             AtividadesToDo atividadesToDo = Db.AtividadesToDo.Find(id);
             if (atividadesToDo == null)

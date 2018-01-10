@@ -28,14 +28,14 @@
     <asp:HiddenField ID="hdIdToDo" runat="server" />
 
     <div class="jumbotron">
-        
+        <div class="input-group">
         <h3>Microsffer ToDo</h3>
-        <asp:TextBox runat="server" ValidationGroup="atividade" ID="txtTituloToDo" CssClass="form-control" placeholder="Digite a atividade" />
+        <asp:TextBox runat="server" ValidationGroup="atividade" ID="txtTituloToDo" MaxLength="50" CssClass="form-control" placeholder="Digite a atividade" />
         <asp:RequiredFieldValidator ValidationGroup="atividade" Display="Dynamic" ForeColor="Red" ErrorMessage="Por favor, digite a atividade." ControlToValidate="txtTituloToDo" runat="server" />
 
         <asp:Button Text="Enviar" ValidationGroup="atividade" CssClass="btn btn-primary btn-block" OnClick="btnEnviar_Click" ID="btnEnviar" runat="server" />
         <asp:Button Text="Editar" ValidationGroup="atividade" Visible="false" CssClass="btn btn-primary btn-block" OnClick="btnEditar_Click" ID="btnEditar" runat="server" />
-
+        </div>
     </div>
 
     
