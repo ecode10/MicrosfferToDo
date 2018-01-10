@@ -23,12 +23,19 @@
                     carregaDados();
 
                     document.getElementById("btnSalvar").innerText = "Salvar";
+                    document.getElementById("nomeTodo").value = "";
+                    document.getElementById("IdTodo").value = "";
                 });
 
             } else {
-                atividadeService.inserir(ativ).success(function (data) {
-                    carregaDados();
-                });
+                var _nome = document.getElementById("nomeTodo").value;
+                if (_nome.trim().length > 0) {
+                    atividadeService.inserir(ativ).success(function (data) {
+                        carregaDados();
+                    });
+                } else {
+                    alert("Por favor, digite a atividade.");
+                }
             }
         };
 
