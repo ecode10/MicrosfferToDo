@@ -18,8 +18,9 @@
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
         <Border BorderThickness="1" HorizontalAlignment="Left" Height="47" Margin="23,50,0,0" VerticalAlignment="Top" Width="478" BorderBrush="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Grid.ColumnSpan="4">
-            <TextBox x:Name="txtNomeToDo" Text="{Binding NomeTodo}" TextWrapping="Wrap" Margin="9,9,96.6,8.8" Background="{x:Null}" FontSize="14" AutomationProperties.HelpText="Digite a atividade" AutomationProperties.Name="txtTituloAtividade"/>
+            <TextBox x:Name="txtNomeToDo" Text="{Binding NomeTodo}" TextWrapping="Wrap" Margin="9,9,96.6,8.8" Background="{x:Null}" FontSize="14" AutomationProperties.HelpText="Digite a atividade" AutomationProperties.Name="txtTituloAtividade"></TextBox>
         </Border>
+
         <Button x:Name="btnEnviar" Command="{Binding SalvarAtividadeCommand}" Content="Enviar" HorizontalAlignment="Left" Margin="256,62,0,0" VerticalAlignment="Top" Width="75" Height="23" FontFamily="Book Antiqua" AutomationProperties.HelpText="Clique para enviar os dados" AutomationProperties.Name="btnEnviar" Grid.Column="3" />
         <Button x:Name="btnDeletar" Command="{Binding DeletarAtividadeCommand}" Content="Deletar" HorizontalAlignment="Left" Margin="58.2,112,0,0" VerticalAlignment="Top" Width="75" Height="23" FontFamily="Book Antiqua" AutomationProperties.HelpText="Clique para deletar os dados" AutomationProperties.Name="btnDeletar" Grid.ColumnSpan="2" Grid.Column="2" />
         <Button Content="Editar" Command="{Binding EditarAtividadeCommand}" Height="23" HorizontalAlignment="Left" Margin="60,112,0,0" x:Name="btnEditar" VerticalAlignment="Top" Width="75" FontFamily="Book Antiqua" Grid.Column="3" />
@@ -30,7 +31,8 @@
                 <DataGridTextColumn Binding="{Binding NomeTodo}" IsReadOnly="True" Header="Atividade" Width="430" />
             </DataGrid.Columns>
         </DataGrid>
-        <Label x:Name="lblAtividadesToDo" Content="Entre com sua atividade" Margin="35.2,8,67,0" VerticalAlignment="Top" FontSize="26.667" FontWeight="Bold" FontFamily="Book Antiqua" Grid.ColumnSpan="2" Grid.Column="2"/>
+        <Label x:Name="lblAtividadesToDo" Content="Digite a atividade" Margin="81.2,0,109,0" VerticalAlignment="Top" FontSize="26.667" FontWeight="Bold" FontFamily="Book Antiqua" Grid.Column="2" Grid.ColumnSpan="2"/>
+        <Label Content="e clique TAB" Grid.Column="3" HorizontalAlignment="Left" Margin="125,26,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

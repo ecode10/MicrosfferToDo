@@ -26,17 +26,18 @@
 
 
     <asp:HiddenField ID="hdIdToDo" runat="server" />
-
-    <div class="jumbotron">
-        <div class="input-group">
-        <h3>Microsffer ToDo</h3>
+    <br />
+    <div class="well">
+        <h1>Microsffer ToDo</h1> Feito em ASP.NET
+    </div>
+    <div class="input-group">
         <asp:TextBox runat="server" ValidationGroup="atividade" ID="txtTituloToDo" MaxLength="50" CssClass="form-control" placeholder="Digite a atividade" />
         <asp:RequiredFieldValidator ValidationGroup="atividade" Display="Dynamic" ForeColor="Red" ErrorMessage="Por favor, digite a atividade." ControlToValidate="txtTituloToDo" runat="server" />
 
-        <asp:Button Text="Enviar" ValidationGroup="atividade" CssClass="btn btn-primary btn-block" OnClick="btnEnviar_Click" ID="btnEnviar" runat="server" />
+        &nbsp;<asp:Button Text="Enviar" ValidationGroup="atividade" CssClass="btn btn-primary btn-block" OnClick="btnEnviar_Click" ID="btnEnviar" runat="server" />
         <asp:Button Text="Editar" ValidationGroup="atividade" Visible="false" CssClass="btn btn-primary btn-block" OnClick="btnEditar_Click" ID="btnEditar" runat="server" />
-        </div>
     </div>
+    
 
     
     <div class="row">
@@ -44,15 +45,17 @@
             <p>
                 <asp:GridView runat="server" ID="grdToDo" DataKeyNames="IdToDo" AllowPaging="true" 
                         Width="100%" PageSize="50" GridLines="None" AutoGenerateColumns="false" 
-                    OnRowDeleting="grdToDo_RowDeleting" OnRowCommand="grdToDo_RowCommand">
-                    <AlternatingRowStyle BackColor="#f1f1f1" />
-                    <HeaderStyle BackColor="#cccccc" />
+                    OnRowDeleting="grdToDo_RowDeleting" OnRowCommand="grdToDo_RowCommand" CssClass="table table-striped">
                     <RowStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                    <EmptyDataTemplate>
+                        Nenhum valor adicionado.
+                    </EmptyDataTemplate>
                     <Columns>
                         <asp:ButtonField ButtonType="Image" ImageUrl="~/Images/checkbox_vazio.png" CommandName="Feito" HeaderText="" Text="" />
-                        <asp:BoundField DataField="NomeToDo" HeaderText="Nome da Conta" />
-                        <asp:CommandField ButtonType="Button" CancelText="Cancelar" ControlStyle-CssClass="btn btn-danger btn-block" DeleteText="Deletar" ShowDeleteButton="true" HeaderText="" />
-                        <asp:ButtonField ButtonType="Button" CommandName="Editar" ControlStyle-CssClass="btn btn-primary btn-block" HeaderText="" Text="Editar" />
+                        <asp:BoundField DataField="NomeToDo" HeaderText="Nome da(s) Atividade(s) não Realizada(s)" />
+                        <asp:ButtonField ButtonType="Button" CommandName="Editar" ControlStyle-CssClass="btn btn-primary" HeaderText="Editar" Text="Editar" />
+                        <asp:CommandField ButtonType="Button" CancelText="Cancelar" ControlStyle-CssClass="btn btn-danger" DeleteText="Deletar" ShowDeleteButton="true" HeaderText="Deletar" />
+                        
                     </Columns>
                 </asp:GridView>
             </p>
@@ -64,18 +67,19 @@
     <div class="row">
         <div class="col-md-12">
             <p>
-                Atividades Realizadas <a href="#" id="lnkAtividadesRealizadas" onclick="javascript:abrir();">+</a>
+                Atividades Realizadas <a href="#" id="lnkAtividadesRealizadas" onclick="javascript:abrir();">-</a>
 
-                <div id="abrirGrid" style="display:none;">
+                <div id="abrirGrid" style="display:'';">
                     <asp:GridView runat="server" ID="grdToDoCompleto" DataKeyNames="IdToDo" AllowPaging="true"
                         Width="100%" PageSize="50" GridLines="None" AutoGenerateColumns="false"
-                        OnRowCommand="grdToDoCompleto_RowCommand">
-                        <AlternatingRowStyle BackColor="#f1f1f1" />
-                        <HeaderStyle BackColor="#cccccc" />
+                        OnRowCommand="grdToDoCompleto_RowCommand" CssClass="table table-striped">                        
                         <RowStyle VerticalAlign="Middle" HorizontalAlign="Left" Font-Strikeout="true" />
+                        <EmptyDataTemplate>
+                            Nenhum valor adicionado.
+                        </EmptyDataTemplate>
                         <Columns>
                             <asp:ButtonField ButtonType="Image" ImageUrl="~/Images/checkbox_preenchido.png" CommandName="DesFeito" HeaderText="" Text="" />
-                            <asp:BoundField DataField="NomeToDo" HeaderText="Nome da Conta" />
+                            <asp:BoundField DataField="NomeToDo" HeaderText="Nome da(s) Atividade(s) Realizada(s)" />
                         </Columns>
                     </asp:GridView>
                 </div>
