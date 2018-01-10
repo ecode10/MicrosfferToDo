@@ -49,7 +49,7 @@ namespace MicrosfferToDo.Controllers
         public IQueryable<AtividadesToDo> GetAtividadesToDo()
         {
             //método que verifica a autorizacao do sistema
-            //checkAutenticacao();
+            checkAutenticacao();
 
             return Db.AtividadesToDo;
         }
@@ -64,7 +64,7 @@ namespace MicrosfferToDo.Controllers
         public IHttpActionResult GetAtividadesToDo(long id)
         {
             //método que verifica a autorizacao do sistema
-            //checkAutenticacao();
+            checkAutenticacao();
 
             AtividadesToDo atividadesToDo = Db.AtividadesToDo.Find(id);
             if (atividadesToDo == null)
@@ -87,7 +87,7 @@ namespace MicrosfferToDo.Controllers
         public IHttpActionResult PutAtividadesToDo(long id, AtividadesToDo atividadesToDo)
         {
             //método que verifica a autorizacao do sistema
-            //checkAutenticacao();
+            checkAutenticacao();
 
             if (!ModelState.IsValid)
             {
@@ -130,7 +130,7 @@ namespace MicrosfferToDo.Controllers
         public IHttpActionResult PostAtividadesToDo(AtividadesToDo atividadesToDo)
         {
             //método que verifica a autorizacao do sistema
-            //checkAutenticacao();
+            checkAutenticacao();
 
             if (!ModelState.IsValid)
             {
@@ -153,7 +153,7 @@ namespace MicrosfferToDo.Controllers
         public IHttpActionResult DeleteAtividadesToDo(long id)
         {
             //método que verifica a autorizacao do sistema
-            //checkAutenticacao();
+            checkAutenticacao();
 
             AtividadesToDo atividadesToDo = Db.AtividadesToDo.Find(id);
             if (atividadesToDo == null)
