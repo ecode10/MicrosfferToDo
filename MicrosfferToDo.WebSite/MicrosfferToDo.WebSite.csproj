@@ -168,6 +168,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Desenvolvido\Default.aspx" />
+    <Content Include="Images\desenvolvido.png" />
     <Content Include="Scripts\angular-messages.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Images\checkbox_preenchido.png" />
@@ -233,6 +235,13 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Desenvolvido\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Desenvolvido\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
