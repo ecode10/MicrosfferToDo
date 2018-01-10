@@ -20,8 +20,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    <li><a href="/" title="Feito em AngularJS">AngularJS</a></li>
+                    <li><a href="http://www.mauriciojunior.org" title="Feito em .NET C# Web Site">Web Site</a></li>
+                    <li><a href="/Help" title="Doc Web Api com segurança">Web Api</a></li>
                 </ul>
             </div>
         </div>
@@ -30,7 +31,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - <a href="https://www.mauriciojunior.org">Mauricio Junior</a></p>
+            <p style="text-align:center;">&copy; @DateTime.Now.Year - <a href="https://www.mauriciojunior.org">Mauricio Junior</a></p>
         </footer>
     </div>
 
