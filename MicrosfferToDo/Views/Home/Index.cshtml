@@ -1,4 +1,5 @@
-﻿<div class="well">
+﻿<br />
+<div class="well">
     <h1>Microsffer ToDo</h1>
 </div>
 
@@ -10,6 +11,10 @@
 
     .form-control {
         margin-bottom: 5px;
+    }
+
+    .cortaFonte {
+        text-decoration: line-through;
     }
 </style> 
 
@@ -30,7 +35,7 @@
                 <th>Deletar</th>
             </tr>
             <tr ng-repeat="ativ in atividadestodo">
-                <td>{{ativ.NomeTodo}}</td>
+                <td><img src="~/AngularApp/image/checkbox_vazio.png" ng-click="atualizaStatus(ativ,1)" style="cursor:pointer;" title="Atividade realizada." />&nbsp; {{ativ.NomeTodo}}</td>
                 <td>
                     <button class="btn btn-primary" ng-click="editarDados(ativ)">Editar</button>
                 </td>
@@ -39,7 +44,21 @@
                 </td>
             </tr>
         </table>
+
+
+        <hr />
+        <table class="table table-striped">
+            <tr class="">
+                <th>Nome da(s) Atividade(s) Realizada(s)</th>
+            </tr>
+            <tr ng-repeat="ativ in atividadestodoRealizado">
+                <td class="cortaFonte">
+                    <img src="~/AngularApp/image/checkbox_preenchido.png" ng-click="atualizaStatus(ativ,0)" style="cursor:pointer;"  title="Atividade realizada." />&nbsp; {{ativ.NomeTodo}}
+                </td>
+            </tr>
+        </table>
     </div>
+
 </div>
 
 

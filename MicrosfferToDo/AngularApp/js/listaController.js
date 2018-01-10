@@ -3,9 +3,14 @@
     var listaController = function ($scope, atividadeService)
     {
         //pega os dados do web api
-        atividadeService.getAtividades().success(function (data) {
+        atividadeService.getAtividades(0).success(function (data) {
             $scope.atividadestodo = data;
         });
+
+        atividadeService.getAtividades(1).success(function (data) {
+            $scope.atividadestodoRealizado = data;
+        });
+        
 
         //método que deleta o dado usando web api
         $scope.deleta = function (ativ) {
@@ -14,12 +19,19 @@
             });
         };
 
+        $scope.atualizaStatus = function (ativ, status) {
+            atividadeService.atualizar(ativ.IdTodo, ativ.NomeTodo, status).success(function () {
+                carregaDados();
+                carregaDadosRealizados();
+            });
+        };
+
         $scope.salvar = function (ativ) {
 
             if (document.getElementById("btnSalvar").innerText == "Editar") {
                 var _nome = document.getElementById("nomeTodo").value;
                 var _id = document.getElementById("IdTodo").value;
-                atividadeService.atualizar(_id, _nome).success(function (data) {
+                atividadeService.atualizar(_id, _nome, 0).success(function (data) {
                     carregaDados();
 
                     document.getElementById("btnSalvar").innerText = "Salvar";
@@ -58,8 +70,15 @@
 
         //carrega os dados
         var carregaDados = function () {
-            atividadeService.getAtividades().success(function (data) {
+            atividadeService.getAtividades(0).success(function (data) {
                 $scope.atividadestodo = data;
+            });
+        };
+
+        //carrega os dados
+        var carregaDadosRealizados = function () {
+            atividadeService.getAtividades(1).success(function (data) {
+                $scope.atividadestodoRealizado = data;
             });
         };
 
