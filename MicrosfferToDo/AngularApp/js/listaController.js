@@ -3,19 +3,19 @@
     var listaController = function ($scope, atividadeService)
     {
         //pega os dados do web api e atualiza as atividades não realizadas
-        atividadeService.getAtividades(0).success(function (data) {
-            $scope.atividadestodo = data;
+        atividadeService.getAtividades(0).then(function (response) {
+            $scope.atividadestodo = response.data;
         });
 
         //pega os dados do web api e atualiza as atividades realizadas
-        atividadeService.getAtividades(1).success(function (data) {
-            $scope.atividadestodoRealizado = data;
+        atividadeService.getAtividades(1).then(function (response) {
+            $scope.atividadestodoRealizado = response.data;
         });
         
         //método que deleta o dado usando web api - atividades não realizadas
         //acionado no click do botao delete
         $scope.deleta = function (ativ) {
-            atividadeService.deleta(ativ).success(function () {
+            atividadeService.deleta(ativ).then(function () {
                 removerAtividadePorId(ativ.IdTodo);
             });
         };
@@ -23,7 +23,7 @@
         //atualiza o status das atividades realizadas e não realizadas
         //acionada no click da imagem
         $scope.atualizaStatus = function (ativ, status) {
-            atividadeService.atualizar(ativ.IdTodo, ativ.NomeTodo, status).success(function () {
+            atividadeService.atualizar(ativ.IdTodo, ativ.NomeTodo, status).then(function () {
                 carregaDados();
                 carregaDadosRealizados();
             });
@@ -40,7 +40,7 @@
                 var _id = document.getElementById("IdTodo").value;
 
                 //atualiza com a web api
-                atividadeService.atualizar(_id, _nome, 0).success(function (data) {
+                atividadeService.atualizar(_id, _nome, 0).then(function (response) {
 
                     //carrega os dados da atividade não realizada
                     carregaDados();
@@ -58,7 +58,7 @@
                 if (_nome.trim().length > 0) {
 
                     //insere na web api
-                    atividadeService.inserir(ativ).success(function (data) {
+                    atividadeService.inserir(ativ).then(function (response) {
                         carregaDados();
                     });
                 } else {
@@ -89,18 +89,17 @@
 
         //funcao privada que carrega os dados da atividade não relizada
         var carregaDados = function () {
-            atividadeService.getAtividades(0).success(function (data) {
-                $scope.atividadestodo = data;
+            atividadeService.getAtividades(0).then(function (response) {
+                $scope.atividadestodo = response.data;
             });
         };
 
         //funcao privada que carrega os dados da atividade realizada
         var carregaDadosRealizados = function () {
-            atividadeService.getAtividades(1).success(function (data) {
-                $scope.atividadestodoRealizado = data;
+            atividadeService.getAtividades(1).then(function (response) {
+                $scope.atividadestodoRealizado = response.data;
             });
         };
-        
     };
 
     app.controller('listaController', listaController);
