@@ -4,7 +4,7 @@ Many projects like:
 * WebAPI in C#
 * AngularJS last version
 * WebSite in C# ASP.NET
-* Desktop MVVM in C#
+* Desktop WPF MVVM in C#
 
 Solution created in Visual Studio 2017.
 <Br>Simple projects and the same time completed.
