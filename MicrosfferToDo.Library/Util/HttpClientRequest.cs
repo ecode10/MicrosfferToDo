@@ -1,10 +1,7 @@
-﻿using MicrosfferToDo.Library.Commum;
+﻿using MicrosfferToDo.Library.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+using MicrosfferToDo.Library.Constantes;
 
 namespace MicrosfferToDo.Library.Util
 {
@@ -20,18 +17,18 @@ namespace MicrosfferToDo.Library.Util
         /// Método que busca o tipo do cliente com o endereço base do web api
         /// </summary>
         /// <returns>HttpClient</returns>
-        public static HttpClient getClient()
+        public static HttpClient GetClient()
         {
             //chama a classe HTTP Client
             HttpClient client = new HttpClient();
 
             //Atribui o endereço base
-            client.BaseAddress = new Uri(EnderecosWebAPI._enderecoBase);
+            client.BaseAddress = new Uri(EnderecosWebApi.EnderecoBase);
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
             //Passa como parâmetro o token e senha no header
-            client.DefaultRequestHeaders.Add("token", TokenWebAPI._publicToken);
-            client.DefaultRequestHeaders.Add("pwd", TokenWebAPI._pwd);
+            client.DefaultRequestHeaders.Add("token", TokenWebApi.PublicToken);
+            client.DefaultRequestHeaders.Add("pwd", TokenWebApi.Pwd);
 
             return client;
         }

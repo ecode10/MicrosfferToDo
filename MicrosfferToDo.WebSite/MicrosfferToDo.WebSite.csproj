@@ -224,7 +224,6 @@
     <Content Include="Site.Mobile.Master" />
     <Content Include="Views\web.config" />
     <Content Include="wpf\Default.aspx" />
-    <Content Include="wpf\MicrosfferToDo.WPF.zip" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />

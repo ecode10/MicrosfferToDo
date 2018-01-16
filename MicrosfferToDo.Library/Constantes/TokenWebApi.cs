@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MicrosfferToDo.Library.Commum
+﻿namespace MicrosfferToDo.Library.Constantes
 {
     /// <summary>
     /// Classe responsável pelo token e password do WebAPI
@@ -15,9 +9,9 @@ namespace MicrosfferToDo.Library.Commum
     /// Mauricio Junior
     /// </author>
     /// </summary>
-    public static class TokenWebAPI
+    public static class TokenWebApi
     {
-        public const string _publicToken = "561d1cc4-c7b5-431e-94a7-e0c2ed9a8d2c";
-        public const string _pwd = "micr@$ffer.T@D@";
+        public const string PublicToken = "561d1cc4-c7b5-431e-94a7-e0c2ed9a8d2c";
+        public const string Pwd = "micr@$ffer.T@D@";
     }
 }

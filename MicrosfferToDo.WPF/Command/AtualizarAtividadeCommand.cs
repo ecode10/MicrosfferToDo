@@ -1,57 +1,35 @@
-﻿using MicrosfferToDo.Library.Commum;
+﻿using MicrosfferToDo.Library.Common;
 using MicrosfferToDo.Library.Util;
 using MicrosfferToDo.WPF.Model;
 using MicrosfferToDo.WPF.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using static System.String;
 
 namespace MicrosfferToDo.WPF.Command
 {
     public class AtualizarAtividadeCommand : ICommand
     {
-        /// <summary>
-        /// Campos da View Model
-        /// </summary>
-        #region " ### campos " 
+        public ToDoViewModel TodoViewModel { get; }
 
-        private ToDoViewModel _todoViewModel;
-
-        #endregion
-
-        /// <summary>
-        /// Construtor da classe
-        /// </summary>
-        /// <param name="_viewModel"></param>
-        #region "#### Construtor " 
 
         ///<summary>
         /// Recebe os objetos da ViewModel e atribui para a propriedade privada da classe
         /// </summary>
-        public AtualizarAtividadeCommand(ToDoViewModel _viewModel)
+        public AtualizarAtividadeCommand(ToDoViewModel viewModel)
         {
-            _todoViewModel = _viewModel;
+            TodoViewModel = viewModel;
         }
-        #endregion
+       
 
-        ///<summary>
-        /// Membros da interface ICommand
-        /// </summary>
-        #region ICommand Members
-
+        
         /// <summary>
         /// Verifica a propriedade para habilitar o botão ou não
         /// </summary>
         public bool CanExecute(object parameter)
         {
-            if (!string.IsNullOrEmpty(_todoViewModel.NomeTodo))
-                return true;
-            else
-                return false;
+            return IsNullOrEmpty(TodoViewModel.NomeTodo);
         }
 
         /// <summary>
@@ -59,8 +37,8 @@ namespace MicrosfferToDo.WPF.Command
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         /// <summary>
@@ -71,27 +49,29 @@ namespace MicrosfferToDo.WPF.Command
         {
             //Chama a classe Request
             //Dentro da classe tem o Token e a Senha
-            var client = HttpClientRequest.getClient();
+            var client = HttpClientRequest.GetClient();
 
             //preenche os dados da classe para passar para a WebAPI
-            var _atividades = new AtividadeToDo()
+            var atividades = new AtividadeToDo()
             {
-                NomeTodo = _todoViewModel.NomeTodo,
+                NomeTodo = TodoViewModel.NomeTodo,
                 CompletoTodo = 0,
-                IdTodo = _todoViewModel.IdTodo
+                IdTodo = TodoViewModel.IdTodo
             };
 
             //Chama a classe PUT passando a constante, id e os dados
-            HttpResponseMessage response = client.PutAsJsonAsync(EnderecosWebAPI._put + _todoViewModel.IdTodo, _atividades).Result;
-            Uri envioUri = response.Headers.Location;
+            HttpResponseMessage response = client.PutAsJsonAsync(EnderecosWebApi.Put + TodoViewModel.IdTodo, atividades).Result;
 
             //Se a resposta do Web Api retornar com sucesso, carrega os dados novamente
             if (response.IsSuccessStatusCode)
             {
-                CarregarAtividadeCommand _carregar = new CarregarAtividadeCommand(_todoViewModel);
-                _carregar.Execute(null);
+                CarregarAtividadeCommand carregaAtividadeCommand = new CarregarAtividadeCommand(TodoViewModel);
+                carregaAtividadeCommand.Execute(null);
+
+                CancelarEdicaoCommand cancelaEdicaoCommand = new CancelarEdicaoCommand(TodoViewModel);
+                cancelaEdicaoCommand.Execute(null);
             }
         }
-        #endregion
+       
     }
 }

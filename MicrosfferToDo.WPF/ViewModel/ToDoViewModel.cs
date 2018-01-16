@@ -1,12 +1,8 @@
 ﻿using MicrosfferToDo.WPF.Command;
 using MicrosfferToDo.WPF.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MicrosfferToDo.WPF.ViewModel
@@ -18,26 +14,25 @@ namespace MicrosfferToDo.WPF.ViewModel
     /// </summary>
     public class ToDoViewModel : INotifyPropertyChanged
     {
-        /// <summary>
-        /// Propriedade Notify que vincula a tela do MVVM
-        /// </summary>
-        #region INotifyPropertyChanged Members
-
+       
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Construtor da classe
+        /// </summary>
+        public ToDoViewModel()
+        {
+            //Chama o método que inicia
+            Initialize();
+        }
 
         public void NotifyPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        #endregion
-
-        /// <summary>
-        /// Propriedades utilizadas na View Model
-        /// </summary>
-        #region "### Propriedades "
-
+     
+        
         //propriedades utilizadas na view
         /// <summary>
         /// Propriedade responsável pela lista de atividades
@@ -46,14 +41,13 @@ namespace MicrosfferToDo.WPF.ViewModel
 
         public ObservableCollection<AtividadeToDo> ListDeAtividadeToDo
         {
-            get { return _listDeAtividadeToDo; }
+            get => _listDeAtividadeToDo;
 
             set
             {
                 _listDeAtividadeToDo = value;
 
-                ///Mesmo nome utilizado no XAML
-                this.NotifyPropertyChanged("ListDeAtividadeToDo");
+                NotifyPropertyChanged("ListDeAtividadeToDo");
 
             }
         }
@@ -66,16 +60,15 @@ namespace MicrosfferToDo.WPF.ViewModel
 
         public AtividadeToDo Atividade
         {
-            get { return _atividade; }
+            get => _atividade;
             set
             {
 
                 if (value != _atividade)
                 {
                     _atividade = value;
-                    
-                    ///Mesmo nome utilizado no SelectItem
-                    this.NotifyPropertyChanged("Atividade");
+
+                    NotifyPropertyChanged("Atividade");
                 }
             }
         }
@@ -88,13 +81,13 @@ namespace MicrosfferToDo.WPF.ViewModel
 
         public string NomeTodo
         {
-            get { return this._nomeTodo; }
+            get => _nomeTodo;
             set
             {
                 if (value != _nomeTodo)
                 {
                     _nomeTodo = value;
-                    this.NotifyPropertyChanged("NomeTodo");
+                    NotifyPropertyChanged("NomeTodo");
                 }
             }
         }
@@ -106,13 +99,13 @@ namespace MicrosfferToDo.WPF.ViewModel
         private Int64 _idTodo;
         public Int64 IdTodo
         {
-            get { return _idTodo; }
+            get => _idTodo;
             set
             {
                 if (value != _idTodo)
                 {
                     _idTodo = value;
-                    this.NotifyPropertyChanged("IdTodo");
+                    NotifyPropertyChanged("IdTodo");
                 }
             }
         }
@@ -123,25 +116,48 @@ namespace MicrosfferToDo.WPF.ViewModel
         /// Não completou 0
         /// </summary>
         private int _completoTodo;
+
         public int CompletoTodo
         {
-            get { return _completoTodo; }
+            get => _completoTodo;
             set
             {
                 if (value != _completoTodo)
                 {
                     _completoTodo = value;
-                    this.NotifyPropertyChanged("CompletoTodo");
+                    NotifyPropertyChanged("CompletoTodo");
                 }
             }
         }
 
-        #endregion
+        private string _btnSalvar;
+        public string BtnSalvar
+        {
+            get => _btnSalvar;
+            set
+            {
+                if (value != _btnSalvar)
+                {
+                    _btnSalvar = value;
+                    NotifyPropertyChanged("BtnSalvar");
+                }
+            }
+        }
 
-        /// <summary>
-        /// Métodos utilizados e acionados pelo click dos botões
-        /// </summary>
-        #region "#### Comandos ### "
+        private bool _gridHabilitado;
+        public bool GridHabilitado
+        {
+            get => _gridHabilitado;
+            set
+            {
+                if (value != _gridHabilitado)
+                {
+                    _gridHabilitado = value;
+                    NotifyPropertyChanged("GridHabilitado");
+                }
+            }
+        }
+
 
         ///<summary>
         /// Salva as atividades
@@ -172,43 +188,32 @@ namespace MicrosfferToDo.WPF.ViewModel
         /// Classe com o nome igual dentro da pasta Command
         /// </summary>
         public ICommand CancelarEdicaoCommand { get; set; }
-        #endregion
+        
 
-        ///<summary>
-        /// Inicia a View Model pelo Inicialize
-        /// </summary>
-        #region "##### Inicia a ViewModel "
-
+        
         /// <summary>
         /// Método que inicia propriedades e comandos
         /// </summary>
         private void Initialize()
         {
             //Zera a lista
-            this._listDeAtividadeToDo = null;
-            this._listDeAtividadeToDo = new ObservableCollection<AtividadeToDo>();
+            _listDeAtividadeToDo = null;
+            _listDeAtividadeToDo = new ObservableCollection<AtividadeToDo>();
 
             //Inicia os comandos
-            this.SalvarAtividadeCommand = new SalvarAtividadeCommand(this);
-            this.CarregarAtividadeCommand = new CarregarAtividadeCommand(this);
-            this.DeletarAtividadeCommand = new DeletarAtividadeCommand(this);
-            this.EditarAtividadeCommand = new EditarAtividadeCommand(this);
-            this.CancelarEdicaoCommand = new CancelarEdicaoCommand(this);
+            SalvarAtividadeCommand = new SalvarAtividadeCommand(this);
+            CarregarAtividadeCommand = new CarregarAtividadeCommand(this);
+            DeletarAtividadeCommand = new DeletarAtividadeCommand(this);
+            EditarAtividadeCommand = new EditarAtividadeCommand(this);
+            CancelarEdicaoCommand = new CancelarEdicaoCommand(this);
 
             //carrega as atividades
             CarregarAtividadeCommand.Execute(null);
-        }
-        #endregion
 
-        /// <summary>
-        /// Construtor da classe
-        /// </summary>
-        #region " ### Construtor ##" 
-        public ToDoViewModel()
-        {
-            //Chama o método que inicia
-            this.Initialize();
+            //
+            BtnSalvar = "Salvar";
+            GridHabilitado = true;
         }
-        #endregion
+        
     }
 }

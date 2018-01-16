@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MicrosfferToDo.WPF.Model
 {
@@ -13,46 +9,28 @@ namespace MicrosfferToDo.WPF.Model
     /// </summary>
     public class AtividadeToDo : INotifyPropertyChanged
     {
-        /// <summary>
-        /// Propriedade Notify que vincula a tela do MVVM
-        /// </summary>
-        #region INotifyPropertyChanged Members
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        #endregion
 
-        /// <summary>
-        /// Construtor da classe
-        /// </summary>
-        #region "### Construtor "
-        public AtividadeToDo() { }
-        #endregion
-
-        /// <summary>
-        /// Propriedades utilizada da classe e da UI
-        /// </summary>
-        #region "#### Propriedades "
-
+       
         /// <summary>
         /// Id da Tabela de banco de dados
         /// </summary>
         private Int64 _idTodo;
         public Int64 IdTodo
         {
-            get { return this._idTodo; }
+            get => _idTodo;
             set
             {
                 if (value != _idTodo)
                 {
                     _idTodo = value;
-                    this.NotifyPropertyChanged("IdTodo");
+                    NotifyPropertyChanged("IdTodo");
                 }
             }
         }
@@ -63,13 +41,13 @@ namespace MicrosfferToDo.WPF.Model
         private string _nomeTodo;
         public string NomeTodo
         {
-            get { return this._nomeTodo; }
+            get => _nomeTodo;
             set
             {
                 if (value != _nomeTodo)
                 {
                     _nomeTodo = value;
-                    this.NotifyPropertyChanged("NomeTodo");
+                    NotifyPropertyChanged("NomeTodo");
                 }
             }
         }
@@ -82,16 +60,44 @@ namespace MicrosfferToDo.WPF.Model
         private int _completoTodo;
         public int CompletoTodo
         {
-            get { return this._completoTodo; }
+            get => _completoTodo;
             set
             {
                 if (value != _completoTodo)
                 {
                     _completoTodo = value;
-                    this.NotifyPropertyChanged("CompletoTodo");
+                    NotifyPropertyChanged("CompletoTodo");
                 }
             }
         }
-        #endregion
+
+        private string _btnSalvar;
+        public string BtnSalvar
+        {
+            get => _btnSalvar;
+            set
+            {
+                if (value != _btnSalvar)
+                {
+                    _btnSalvar = value;
+                    NotifyPropertyChanged("BtnSalvar");
+                }
+            }
+        }
+
+        private bool _gridHabilitado;
+        public bool GridHabilitado
+        {
+            get => _gridHabilitado;
+            set
+            {
+                if (value != _gridHabilitado)
+                {
+                    _gridHabilitado = value;
+                    NotifyPropertyChanged("GridHabilitado");
+                }
+            }
+        }
+
     }
 }

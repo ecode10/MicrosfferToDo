@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MicrosfferToDo.WPF"
         mc:Ignorable="d"
         Title="Microsffer ToDo" Height="350" Width="525" WindowStyle="ToolWindow">
     <Grid>
@@ -18,21 +17,27 @@
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
         <Border BorderThickness="1" HorizontalAlignment="Left" Height="47" Margin="23,50,0,0" VerticalAlignment="Top" Width="478" BorderBrush="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Grid.ColumnSpan="4">
-            <TextBox x:Name="txtNomeToDo" Text="{Binding NomeTodo}" TextWrapping="Wrap" Margin="9,9,96.6,8.8" Background="{x:Null}" FontSize="14" AutomationProperties.HelpText="Digite a atividade" AutomationProperties.Name="txtTituloAtividade"></TextBox>
+            <TextBox x:Name="TxtNomeToDo" Text="{Binding NomeTodo}" TextWrapping="Wrap" Margin="9,9,142,9" Background="{x:Null}" FontSize="14" AutomationProperties.HelpText="Digite a atividade" AutomationProperties.Name="txtTituloAtividade"></TextBox>
         </Border>
 
-        <Button x:Name="btnEnviar" Command="{Binding SalvarAtividadeCommand}" Content="Enviar" HorizontalAlignment="Left" Margin="256,62,0,0" VerticalAlignment="Top" Width="75" Height="23" FontFamily="Book Antiqua" AutomationProperties.HelpText="Clique para enviar os dados" AutomationProperties.Name="btnEnviar" Grid.Column="3" />
-        <Button x:Name="btnDeletar" Command="{Binding DeletarAtividadeCommand}" Content="Deletar" HorizontalAlignment="Left" Margin="58.2,112,0,0" VerticalAlignment="Top" Width="75" Height="23" FontFamily="Book Antiqua" AutomationProperties.HelpText="Clique para deletar os dados" AutomationProperties.Name="btnDeletar" Grid.ColumnSpan="2" Grid.Column="2" />
-        <Button Content="Editar" Command="{Binding EditarAtividadeCommand}" Height="23" HorizontalAlignment="Left" Margin="60,112,0,0" x:Name="btnEditar" VerticalAlignment="Top" Width="75" FontFamily="Book Antiqua" Grid.Column="3" />
-        <Button Content="Cancelar" Command="{Binding CancelarEdicaoCommand}" Height="23" HorizontalAlignment="Left" Margin="172,112,0,0" x:Name="btnCancelar" VerticalAlignment="Top" Width="75" FontFamily="Book Antiqua" Grid.Column="3" />
+        <Button x:Name="BtnEnviar" Command="{Binding SalvarAtividadeCommand}" Content="{Binding BtnSalvar}" HorizontalAlignment="Left" Margin="208,62,0,0" VerticalAlignment="Top" Width="123" Height="23" FontFamily="Book Antiqua" AutomationProperties.HelpText="Clique para enviar os dados" AutomationProperties.Name="btnEnviar"
+                Grid.Row="0" Grid.Column="3" />
+        <Button x:Name="BtnDeletar" Command="{Binding DeletarAtividadeCommand}" Content="Deletar" HorizontalAlignment="Left" Margin="58.2,112,0,0" VerticalAlignment="Top" Width="75" Height="23" FontFamily="Book Antiqua" AutomationProperties.HelpText="Clique para deletar os dados" AutomationProperties.Name="btnDeletar"
+                Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="2" />
+        <Button Content="Editar" Command="{Binding EditarAtividadeCommand}" IsEnabled="{Binding GridHabilitado}" Height="23" HorizontalAlignment="Left" Margin="60,112,0,0" x:Name="BtnEditar" VerticalAlignment="Top" Width="75" FontFamily="Book Antiqua"
+                Grid.Row="0" Grid.Column="3" />
+        <Button Content="Cancelar" Command="{Binding CancelarEdicaoCommand}" Height="23" HorizontalAlignment="Left" Margin="172,112,0,0" x:Name="BtnCancelar" VerticalAlignment="Top" Width="75" FontFamily="Book Antiqua"
+                Grid.Row="0" Grid.Column="3" />
 
-        <DataGrid ItemsSource="{Binding ListDeAtividadeToDo}" x:Name="dtgListaAtividades" SelectedItem="{Binding Atividade}" AutoGenerateColumns="False" Margin="23,151,19,18.2" Grid.ColumnSpan="4">
+        <DataGrid ItemsSource="{Binding ListDeAtividadeToDo}" x:Name="DtgListaAtividades" IsEnabled="{Binding GridHabilitado}" SelectedItem="{Binding Atividade}" SelectionMode="Single" AutoGenerateColumns="False" Margin="23,151,19,18.2"
+                  Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding NomeTodo}" IsReadOnly="True" Header="Atividade" Width="430" />
             </DataGrid.Columns>
         </DataGrid>
-        <Label x:Name="lblAtividadesToDo" Content="Digite a atividade" Margin="81.2,0,109,0" VerticalAlignment="Top" FontSize="26.667" FontWeight="Bold" FontFamily="Book Antiqua" Grid.Column="2" Grid.ColumnSpan="2"/>
-        <Label Content="e clique TAB" Grid.Column="3" HorizontalAlignment="Left" Margin="125,26,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LblAtividadesToDo" Content="Digite a atividade" Margin="81.2,0,109,0" VerticalAlignment="Top" FontSize="26.667" FontWeight="Bold" FontFamily="Book Antiqua" Grid.Column="2"
+               Grid.Row="0" Grid.ColumnSpan="2"/>
+        <Label Content="e clique TAB" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" Margin="125,26,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

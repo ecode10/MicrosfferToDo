@@ -1,13 +1,9 @@
-﻿using MicrosfferToDo.Library.Commum;
+﻿using MicrosfferToDo.Library.Common;
 using MicrosfferToDo.Library.Util;
 using MicrosfferToDo.WPF.Model;
 using MicrosfferToDo.WPF.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MicrosfferToDo.WPF.Command
@@ -17,39 +13,21 @@ namespace MicrosfferToDo.WPF.Command
         /// <summary>
         /// Campos privados
         /// </summary>
-        #region " ### Campos " 
+        public ToDoViewModel TodoViewModel { get; }
 
-        private ToDoViewModel _todoViewModel;
-
-        #endregion
-
-        /// <summary>
-        /// Construtor da classe
-        /// </summary>
-        /// <param name="_viewModel"></param>
-        #region "#### Construtor " 
-
-        public SalvarAtividadeCommand(ToDoViewModel _viewModel)
+        public SalvarAtividadeCommand(ToDoViewModel viewModel)
         {
             //atribui o que foi passado para a propriedade privada
-            _todoViewModel = _viewModel;
+            TodoViewModel = viewModel;
         }
-        #endregion
-
-        /// <summary>
-        /// Métodos membros da Interface ICommand
-        /// </summary>
-        #region ICommand Members
-
+        
+        
         /// <summary>
         /// Método pode executar se a propriedade nome for preenchida
         /// </summary>
         public bool CanExecute(object parameter)
         {
-            if (!string.IsNullOrEmpty(_todoViewModel.NomeTodo))
-                return true;
-            else
-                return false;
+            return !string.IsNullOrEmpty(TodoViewModel.NomeTodo);
         }
 
         /// <summary>
@@ -57,8 +35,8 @@ namespace MicrosfferToDo.WPF.Command
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         /// <summary>
@@ -69,38 +47,43 @@ namespace MicrosfferToDo.WPF.Command
         public void Execute(object parameter)
         {
             //Verifica se Id foi é igual a 0 para Salvar
-            if (_todoViewModel.IdTodo == 0)
+            if (TodoViewModel.IdTodo == 0)
             {
                 //Chama o método para preparar para o Web API
                 //Token
                 //Password
-                var client = HttpClientRequest.getClient();
+                var client = HttpClientRequest.GetClient();
 
                 //preenche os dados da classe
-                var _atividades = new AtividadeToDo()
+                var atividades = new AtividadeToDo()
                 {
-                    NomeTodo = _todoViewModel.NomeTodo,
+                    NomeTodo = TodoViewModel.NomeTodo,
                     CompletoTodo = 0
                 };
 
                 //Chama o Web API Post passando o endereço (constante) e a classe preenchida.
-                HttpResponseMessage response = client.PostAsJsonAsync(EnderecosWebAPI._post, _atividades).Result;
-                Uri envioUri = response.Headers.Location;
+                HttpResponseMessage response = client.PostAsJsonAsync(EnderecosWebApi.Post, atividades).Result;
 
                 //se for com sucesso carrega os dados
                 if (response.IsSuccessStatusCode)
                 {
-                    CarregarAtividadeCommand _carr = new CarregarAtividadeCommand(_todoViewModel);
-                    _carr.Execute(null);
+                    CarregarAtividadeCommand carregaAtividadeCommand = new CarregarAtividadeCommand(TodoViewModel);
+                    carregaAtividadeCommand.Execute(null);
+
+                    CancelarEdicaoCommand cancelaEdicaoCommand = new CancelarEdicaoCommand(TodoViewModel);
+                    cancelaEdicaoCommand.Execute(null);
                 }
             }
             else // igual a 1 para editar
             {
                 //chama a classe para atualizar
-                AtualizarAtividadeCommand _atualiza = new AtualizarAtividadeCommand(_todoViewModel);
-                _atualiza.Execute(null);
+                AtualizarAtividadeCommand atualiza = new AtualizarAtividadeCommand(TodoViewModel);
+                atualiza.Execute(null);
+
+                CancelarEdicaoCommand cancelaEdicaoCommand = new CancelarEdicaoCommand(TodoViewModel);
+                cancelaEdicaoCommand.Execute(null);
             }
         }
-        #endregion
+        
     }
 }

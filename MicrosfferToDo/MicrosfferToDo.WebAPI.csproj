@@ -195,11 +195,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AngularApp\image\checkbox_preenchido.png" />
-    <Content Include="AngularApp\image\checkbox_vazio.png" />
-    <Content Include="AngularApp\js\atividades.js" />
-    <Content Include="AngularApp\js\atividadeService.js" />
-    <Content Include="AngularApp\js\listaController.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />

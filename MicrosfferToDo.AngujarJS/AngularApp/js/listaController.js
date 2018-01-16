@@ -14,6 +14,7 @@
         
         //método que deleta o dado usando web api - atividades não realizadas
         //acionado no click do botao delete
+        var removerAtividadePorId;
         $scope.deleta = function (ativ) {
             atividadeService.deleta(ativ).then(function () {
                 removerAtividadePorId(ativ.IdTodo);
@@ -22,6 +23,8 @@
 
         //atualiza o status das atividades realizadas e não realizadas
         //acionada no click da imagem
+        var carregaDados;
+        var carregaDadosRealizados;
         $scope.atualizaStatus = function (ativ, status) {
             atividadeService.atualizar(ativ.IdTodo, ativ.NomeTodo, status).then(function () {
                 carregaDados();
@@ -32,15 +35,14 @@
         //salva ou edita os dados
         //acionado no click do botão salvar
         $scope.salvar = function (ativ) {
+            //pega os valores dos campos
+            var nome = document.getElementById("nomeTodo").value;
+            var id = document.getElementById("IdTodo").value;
 
-            if (document.getElementById("btnSalvar").innerText == "Editar") {
-
-                //pega os valores dos campos
-                var _nome = document.getElementById("nomeTodo").value;
-                var _id = document.getElementById("IdTodo").value;
+            if (document.getElementById("btnSalvar").innerText === "Editar") {
 
                 //atualiza com a web api
-                atividadeService.atualizar(_id, _nome, 0).then(function (response) {
+                atividadeService.atualizar(id, nome, 0).then(function () {
 
                     //carrega os dados da atividade não realizada
                     carregaDados();
@@ -52,13 +54,12 @@
                 });
 
             } else { //insere usando web api
-                var _nome = document.getElementById("nomeTodo").value;
 
                 //verifica se os dados foram digitados
-                if (_nome.trim().length > 0) {
+                if (nome.trim().length > 0) {
 
                     //insere na web api
-                    atividadeService.inserir(ativ).then(function (response) {
+                    atividadeService.inserir(ativ).then(function () {
                         carregaDados();
                     });
                 } else {
@@ -78,9 +79,9 @@
         };
 
         //método privado utilizado para apagar ao invés de atualizar a página com o webapi
-        var removerAtividadePorId = function (id) {
+        removerAtividadePorId = function (id) {
             for (var i = 0; i < $scope.atividadestodo.length; i++) {
-                if ($scope.atividadestodo[i].IdTodo == id) {
+                if ($scope.atividadestodo[i].IdTodo === id) {
                     $scope.atividadestodo.splice(i, 1);
                     break;
                 }
@@ -88,14 +89,14 @@
         };
 
         //funcao privada que carrega os dados da atividade não relizada
-        var carregaDados = function () {
+        carregaDados = function () {
             atividadeService.getAtividades(0).then(function (response) {
                 $scope.atividadestodo = response.data;
             });
         };
 
         //funcao privada que carrega os dados da atividade realizada
-        var carregaDadosRealizados = function () {
+        carregaDadosRealizados = function () {
             atividadeService.getAtividades(1).then(function (response) {
                 $scope.atividadestodoRealizado = response.data;
             });

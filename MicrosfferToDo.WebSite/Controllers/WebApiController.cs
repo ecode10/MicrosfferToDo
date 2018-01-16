@@ -1,11 +1,8 @@
-﻿using MicrosfferToDo.Library.Commum;
+﻿using MicrosfferToDo.Library.Common;
 using MicrosfferToDo.Library.Util;
 using MicrosfferToDo.WebSite.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Web;
 
 namespace MicrosfferToDo.WebSite.Controllers
 {
@@ -27,10 +24,9 @@ namespace MicrosfferToDo.WebSite.Controllers
         public static HttpResponseMessage ConsultaWebApiByStatus(int numeroStatus)
         {
             //preparando o web api com token e password
-            var client = HttpClientRequest.getClient();
+            var client = HttpClientRequest.GetClient();
 
-            HttpResponseMessage response = client.GetAsync(EnderecosWebAPI._getByStatus + numeroStatus).Result;
-            Uri envioUri = response.Headers.Location;
+            HttpResponseMessage response = client.GetAsync(EnderecosWebApi.GetByStatus + numeroStatus).Result;
             return response;
         }
 
@@ -38,30 +34,28 @@ namespace MicrosfferToDo.WebSite.Controllers
         /// Método responsável pelo insert no web api via post
         /// Chama o projeto Web Api
         /// </summary>
-        /// <param name="_atividades">AtividadesToDo</param>
+        /// <param name="atividades">AtividadesToDo</param>
         /// <returns>HttpResponseMessage</returns>
-        public static HttpResponseMessage InserirDadosWebApi(AtividadesToDo _atividades)
+        public static HttpResponseMessage InserirDadosWebApi(AtividadesToDo atividades)
         {
             //preparando o web api com token e password
-            var client = HttpClientRequest.getClient();
+            var client = HttpClientRequest.GetClient();
 
-            HttpResponseMessage response = client.PostAsJsonAsync(EnderecosWebAPI._post, _atividades).Result;
-            Uri envioUri = response.Headers.Location;
+            HttpResponseMessage response = client.PostAsJsonAsync(EnderecosWebApi.Post, atividades).Result;
             return response;
         }
 
         /// <summary>
         /// Método que deleta os dados do Web Api
         /// </summary>
-        /// <param name="_IdToDo">string</param>
+        /// <param name="idToDo">string</param>
         /// <returns>HttpResponseMessage</returns>
-        public static HttpResponseMessage DeletarDadosWebApi(string _IdToDo)
+        public static HttpResponseMessage DeletarDadosWebApi(string idToDo)
         {
             //preparando o web api com token e password
-            var client = HttpClientRequest.getClient();
+            var client = HttpClientRequest.GetClient();
 
-            HttpResponseMessage response = client.DeleteAsync(EnderecosWebAPI._delete + _IdToDo).Result;
-            Uri envioUri = response.Headers.Location;
+            HttpResponseMessage response = client.DeleteAsync(EnderecosWebApi.Delete + idToDo).Result;
             return response;
         }
 
@@ -69,15 +63,14 @@ namespace MicrosfferToDo.WebSite.Controllers
         /// Método que atualiza os dados do Web Api
         /// </summary>
         /// <param name="chave">string</param>
-        /// <param name="_atividades">AtividadesToDo</param>
+        /// <param name="atividades">AtividadesToDo</param>
         /// <returns></returns>
-        public static HttpResponseMessage AtualizarDadosWebApi(string chave, AtividadesToDo _atividades)
+        public static HttpResponseMessage AtualizarDadosWebApi(string chave, AtividadesToDo atividades)
         {
             //preparando o web api com token e password
-            var client = HttpClientRequest.getClient();
+            var client = HttpClientRequest.GetClient();
 
-            HttpResponseMessage response = client.PutAsJsonAsync(EnderecosWebAPI._put + chave, _atividades).Result;
-            Uri envioUri = response.Headers.Location;
+            HttpResponseMessage response = client.PutAsJsonAsync(EnderecosWebApi.Put + chave, atividades).Result;
             return response;
         }
     }

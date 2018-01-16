@@ -19,8 +19,8 @@
         //web api que atualiza os dados
         //é necessário passar o token e password
         var atualizar = function (id, nome, status) {
-            var _dados = { "NomeTodo": nome, "CompletoTodo": status, "IdTodo": id };
-            return $http.put("/api/atividadestodo/" + id, _dados, {
+            var dados = { "NomeTodo": nome, "CompletoTodo": status, "IdTodo": id };
+            return $http.put("/api/atividadestodo/" + id, dados, {
                 headers: { "token": "561d1cc4-c7b5-431e-94a7-e0c2ed9a8d2c", "pwd": "micr@$ffer.T@D@" }
             });
         };
@@ -28,8 +28,8 @@
         //web api que insere os dados
         //é necessário passar o token e password
         var inserir = function (ativid) {
-            var _dados = { "NomeTodo": ativid.NomeTodo, "CompletoTodo": "0" };
-            return $http.post("/api/atividadestodo", _dados, {
+            var dados = { "NomeTodo": ativid.NomeTodo, "CompletoTodo": "0" };
+            return $http.post("/api/atividadestodo", dados, {
                 headers: { "token": "561d1cc4-c7b5-431e-94a7-e0c2ed9a8d2c", "pwd": "micr@$ffer.T@D@" }
             });
         };

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using HtmlAgilityPack;
 using System.IO;
@@ -12,18 +10,20 @@ namespace MicrosfferToDo.Library.Util
     /// Classe que converte HTML para Texto e vice versa
     /// <author>Mauricio Junior</author>
     /// </summary>
-    public class HTMLToText
+    public class HtmlToText
     {
         /// <summary>
         /// Método que pega string e transforma para HTML
         /// </summary>
-        /// <param name="HTMLText">string</param>
+        /// <param name="htmlText">string</param>
         /// <param name="decode">bool</param>
         /// <returns>string</returns>
-        public static string StripHTML(string HTMLText, bool decode = true)
+        public static string StripHtml(string htmlText, bool decode = true)
         {
-            Regex reg = new Regex("<[^>]+>", RegexOptions.IgnoreCase);
-            var stripped = reg.Replace(HTMLText, "");
+            if (htmlText == null) throw new ArgumentNullException(nameof(htmlText));
+
+            Regex reg = new Regex("<[^>]+>", options: RegexOptions.IgnoreCase);
+            var stripped = reg.Replace(htmlText, "");
             return decode ? HttpUtility.HtmlDecode(stripped) : stripped;
         }
 
@@ -79,7 +79,6 @@ namespace MicrosfferToDo.Library.Util
         /// <param name="outText">TextWriter</param>
         public static void ConvertTo(HtmlNode node, TextWriter outText)
         {
-            string html;
             switch (node.NodeType)
             {
                 case HtmlNodeType.Comment:
@@ -97,7 +96,7 @@ namespace MicrosfferToDo.Library.Util
                         break;
 
                     // pega o texto
-                    html = ((HtmlTextNode)node).Text;
+                    var html = ((HtmlTextNode)node).Text;
 
                     // especial que verifica se a saída é um texto
                     if (HtmlNode.IsOverlappedClosingElement(html))

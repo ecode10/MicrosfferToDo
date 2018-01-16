@@ -44,10 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commum\EnderecosWebAPI.cs" />
+    <Compile Include="Constantes\EnderecosWebApi.cs" />
+    <Compile Include="Constantes\TokenWebApi.cs" />
     <Compile Include="Util\HTMLToText.cs" />
     <Compile Include="Util\HttpClientRequest.cs" />
-    <Compile Include="Commum\TokenWebAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http.Headers;
-using System.Web;
 using System.Web.Http;
+using MicrosfferToDo.Library.Constantes;
 
 namespace MicrosfferToDo.Controllers
 {
@@ -18,27 +16,26 @@ namespace MicrosfferToDo.Controllers
         /// </summary>
         /// <param name="req">HttpRequestHeaders</param>
         /// <returns>HttpStatusCode</returns>
-        public HttpStatusCode autorizarToken(HttpRequestHeaders req)
+        public HttpStatusCode AutorizarToken(HttpRequestHeaders req)
         {
-            System.Net.Http.Headers.HttpRequestHeaders headers = req; //this.Request.Headers;
-            string _token = string.Empty;
-            string _pwd = string.Empty;
+            var headers = req; //this.Request.Headers;
+            string token = string.Empty;
+            string pwd = string.Empty;
 
             //verifica se contem as duas tags no header para atribuir os valores
             if (headers.Contains("token") && headers.Contains("pwd"))
             {
-                _token = headers.GetValues("token").First();
-                _pwd = headers.GetValues("pwd").First();
+                token = headers.GetValues("token").First();
+                pwd = headers.GetValues("pwd").First();
             }
             
             try
             {
                 //verifica se os dados atribuídos são iguais ao da classe
-                if (_token.Equals(MicrosfferToDo.Library.Commum.TokenWebAPI._publicToken) &&
-                    _pwd.Equals(MicrosfferToDo.Library.Commum.TokenWebAPI._pwd))
+                if (token.Equals(TokenWebApi.PublicToken) &&
+                    pwd.Equals(TokenWebApi.Pwd))
                     return HttpStatusCode.Accepted;
-                else
-                    return HttpStatusCode.Unauthorized;
+                return HttpStatusCode.Unauthorized;
             }
             catch
             {

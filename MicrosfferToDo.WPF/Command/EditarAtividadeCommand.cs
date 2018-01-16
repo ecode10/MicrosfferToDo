@@ -1,16 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using MicrosfferToDo.Library.Commum;
-using MicrosfferToDo.Library.Util;
-using MicrosfferToDo.WPF.Model;
 using MicrosfferToDo.WPF.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MicrosfferToDo.WPF.Command
@@ -20,36 +9,24 @@ namespace MicrosfferToDo.WPF.Command
         /// <summary>
         /// Propriedade privada da ViewModel
         /// </summary>
-        #region " ### Campos " 
-
-        private ToDoViewModel _todoViewModel;
-
-        #endregion
+        public ToDoViewModel TodoViewModel { get; }
 
         /// <summary>
         /// Construtor da classe
         /// </summary>
-        /// <param name="_viewModel">ToDoViewModel</param>
-        #region "#### Construtor " 
-
-        public EditarAtividadeCommand(ToDoViewModel _viewModel)
+        /// <param name="viewModel">ToDoViewModel</param>
+        public EditarAtividadeCommand(ToDoViewModel viewModel)
         {
             //atribui os dados da View Model para a propriedade privada
-            _todoViewModel = _viewModel;
+            TodoViewModel = viewModel;
         }
-        #endregion
-
-        /// <summary>
-        /// Métodos membros da interface ICommand
-        /// </summary>
-        #region ICommand Members
-
+        
         /// <summary>
         /// Método que pode ser executado se a propriedade for preenchida
         /// </summary>
         public bool CanExecute(object parameter)
         {
-            return _todoViewModel.Atividade != null;
+            return TodoViewModel.Atividade != null;
         }
 
         /// <summary>
@@ -57,8 +34,8 @@ namespace MicrosfferToDo.WPF.Command
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         /// <summary>
@@ -67,11 +44,13 @@ namespace MicrosfferToDo.WPF.Command
         /// </summary>
         public void Execute(object parameter)
         {
-            var _atividade = _todoViewModel.Atividade;
+            var atividade = TodoViewModel.Atividade;
 
-            _todoViewModel.NomeTodo = _atividade.NomeTodo;
-            _todoViewModel.IdTodo = _atividade.IdTodo;
+            TodoViewModel.NomeTodo = atividade.NomeTodo;
+            TodoViewModel.IdTodo = atividade.IdTodo;
+
+            TodoViewModel.BtnSalvar = "Salvar alterações";
+            TodoViewModel.GridHabilitado = false;
         }
-        #endregion
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MicrosfferToDo.Models
 {
@@ -13,7 +12,7 @@ namespace MicrosfferToDo.Models
         /// Id chave da atividade
         /// </summary>
         [Key]
-        public Int64 IdTodo { get; set; }
+        public long IdTodo { get; set; }
 
         /// <summary>
         /// Nome da atividade

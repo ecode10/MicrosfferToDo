@@ -5,7 +5,6 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MicrosfferToDo.DAL;
@@ -16,7 +15,7 @@ using System.Data.SqlClient;
 namespace MicrosfferToDo.Controllers
 {
     /// <summary>
-    /// Classe responsável pela comunicação com a tabela de Atividades ToDo do projeto
+    /// Classe responsável pela comunicação com a tabela de Atividades do projeto
     /// <author>Mauricio Junior</author>
     /// </summary>
     public class AtividadesToDoController : ApiController
@@ -24,34 +23,32 @@ namespace MicrosfferToDo.Controllers
         /// <summary>
         /// Conexto privado
         /// </summary>
-        DBContextToDo Db = new DBContextToDo();
+        private readonly DBContextToDo _db = new DBContextToDo();
 
         /// <summary>
         /// Método que verifica a autorização do token
         /// </summary>
         /// <returns>IHttpActionResult</returns>
-        private IHttpActionResult checkAutenticacao()
+        private void CheckAutenticacao()
         {
-            AuthHeader _auth = new AuthHeader();
-            if (_auth.autorizarToken(Request.Headers) == HttpStatusCode.Unauthorized)
+            AuthHeader auth = new AuthHeader();
+            if (auth.AutorizarToken(Request.Headers) == HttpStatusCode.Unauthorized)
             {
                 throw new Exception("Error: Your are not unauthorized - Code: " + HttpStatusCode.Unauthorized);
             }
-            else
-                return null;
         }
 
         /// <summary>
-        /// Método que busca todas as atividades do ToDo
+        /// Método que busca todas as atividades
         /// </summary>
         /// <returns>IQueryable</returns>
         // GET: api/AtividadesToDo
         public IQueryable<AtividadesToDo> GetAtividadesToDo()
         {
             //método que verifica a autorizacao do sistema
-            checkAutenticacao();
+            CheckAutenticacao();
 
-            return Db.AtividadesToDo;
+            return _db.AtividadesToDo;
         }
 
         /// <summary>
@@ -64,9 +61,9 @@ namespace MicrosfferToDo.Controllers
         public IHttpActionResult GetAtividadesToDo(long id)
         {
             //método que verifica a autorizacao do sistema
-            checkAutenticacao();
+            CheckAutenticacao();
 
-            AtividadesToDo atividadesToDo = Db.AtividadesToDo.Find(id);
+            AtividadesToDo atividadesToDo = _db.AtividadesToDo.Find(id);
             if (atividadesToDo == null)
             {
                 return NotFound();
@@ -77,7 +74,7 @@ namespace MicrosfferToDo.Controllers
 
 
         /// <summary>
-        /// Método que atualiza as atividades do ToDo
+        /// Método que atualiza as atividades
         /// </summary>
         /// <param name="id">long</param>
         /// <param name="atividadesToDo"></param>
@@ -87,7 +84,7 @@ namespace MicrosfferToDo.Controllers
         public IHttpActionResult PutAtividadesToDo(long id, AtividadesToDo atividadesToDo)
         {
             //método que verifica a autorizacao do sistema
-            checkAutenticacao();
+            CheckAutenticacao();
 
             if (!ModelState.IsValid)
             {
@@ -99,11 +96,11 @@ namespace MicrosfferToDo.Controllers
                 return BadRequest();
             }
 
-            Db.Entry(atividadesToDo).State = EntityState.Modified;
+            _db.Entry(atividadesToDo).State = EntityState.Modified;
 
             try
             {
-                Db.SaveChanges();
+                _db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -121,7 +118,7 @@ namespace MicrosfferToDo.Controllers
         }
 
         /// <summary>
-        /// Método que insere as atividades do ToDo
+        /// Método que insere as atividades
         /// </summary>
         /// <param name="atividadesToDo"></param>
         /// <returns>AtividadesToDo</returns>
@@ -130,21 +127,21 @@ namespace MicrosfferToDo.Controllers
         public IHttpActionResult PostAtividadesToDo(AtividadesToDo atividadesToDo)
         {
             //método que verifica a autorizacao do sistema
-            checkAutenticacao();
+            CheckAutenticacao();
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            Db.AtividadesToDo.Add(atividadesToDo);
-            Db.SaveChanges();
+            _db.AtividadesToDo.Add(atividadesToDo);
+            _db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = atividadesToDo.IdTodo }, atividadesToDo);
         }
 
         /// <summary>
-        /// Método que deleta as atividades do ToDo
+        /// Método que deleta as atividades
         /// </summary>
         /// <param name="id">long</param>
         /// <returns>IHttpActionResult</returns>
@@ -153,16 +150,16 @@ namespace MicrosfferToDo.Controllers
         public IHttpActionResult DeleteAtividadesToDo(long id)
         {
             //método que verifica a autorizacao do sistema
-            checkAutenticacao();
+            CheckAutenticacao();
 
-            AtividadesToDo atividadesToDo = Db.AtividadesToDo.Find(id);
+            AtividadesToDo atividadesToDo = _db.AtividadesToDo.Find(id);
             if (atividadesToDo == null)
             {
                 return NotFound();
             }
 
-            Db.AtividadesToDo.Remove(atividadesToDo);
-            Db.SaveChanges();
+            _db.AtividadesToDo.Remove(atividadesToDo);
+            _db.SaveChanges();
 
             return Ok(atividadesToDo);
         }
@@ -179,26 +176,23 @@ namespace MicrosfferToDo.Controllers
         public IEnumerable<AtividadesToDo> GetAtividadesByStatus(string id)
         {
             //método que verifica a autorizacao do sistema
-            checkAutenticacao();
+            CheckAutenticacao();
 
             StringBuilder str = new StringBuilder();
             str.Append(@"SELECT
                             IdToDo, NomeToDo, DescricaoToDo, DataToDo, HoraToDo, CompletoToDo
                          FROM
                             AtividadesToDo
-                        WHERE CompletoToDo = @id ");
+                        WHERE CompletoToDo = @id ORDER BY IdToDo DESC ");
 
-            IDataParameter _completoParameter = new SqlParameter();
-            _completoParameter.DbType = DbType.Int32;
-            _completoParameter.ParameterName = "@id";
-            _completoParameter.Value = int.Parse(id);
-            _completoParameter.SourceColumn = "CompletoToDo";
+            IDataParameter completoParameter = new SqlParameter();
+            completoParameter.DbType = DbType.Int32;
+            completoParameter.ParameterName = "@id";
+            completoParameter.Value = int.Parse(id);
+            completoParameter.SourceColumn = "CompletoToDo";
 
-            var resultado = Db.Database.SqlQuery<AtividadesToDo>(str.ToString(),
-                _completoParameter).AsEnumerable();
-
-            if (resultado == null)
-                return null;
+            var resultado = _db.Database.SqlQuery<AtividadesToDo>(str.ToString(),
+                completoParameter).AsEnumerable();
 
             return resultado;
         }
@@ -211,14 +205,14 @@ namespace MicrosfferToDo.Controllers
         {
             if (disposing)
             {
-                Db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool AtividadesToDoExists(long id)
         {
-            return Db.AtividadesToDo.Count(e => e.IdTodo == id) > 0;
+            return _db.AtividadesToDo.Count(e => e.IdTodo == id) > 0;
         }
     }
 }
