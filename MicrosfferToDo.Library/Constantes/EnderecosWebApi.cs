@@ -1,4 +1,4 @@
-﻿namespace MicrosfferToDo.Library.Common
+﻿namespace MicrosfferToDo.Library.Constantes
 {
     /// <summary>
     /// Classe criada para ter os endereços do web api

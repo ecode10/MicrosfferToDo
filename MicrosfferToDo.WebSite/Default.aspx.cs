@@ -162,7 +162,7 @@ namespace MicrosfferToDo.WebSite
                 {
                     NomeTodo = HtmlToText.StripHtml(grdToDo.Rows[index].Cells[1].Text),
                     CompletoTodo = 1,
-                    IdTodo = int.Parse(chave ?? throw new Exception())
+                    IdTodo = int.Parse(chave)
                 };
 
                 //atualiza os dados preenchidos da classe Atividades no Web Api
