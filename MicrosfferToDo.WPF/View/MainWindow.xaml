@@ -22,7 +22,7 @@
 
         <Button x:Name="BtnEnviar" Command="{Binding SalvarAtividadeCommand}" Content="{Binding BtnSalvar}" HorizontalAlignment="Left" Margin="208,62,0,0" VerticalAlignment="Top" Width="123" Height="23" FontFamily="Book Antiqua" AutomationProperties.HelpText="Clique para enviar os dados" AutomationProperties.Name="btnEnviar"
                 Grid.Row="0" Grid.Column="3" />
-        <Button x:Name="BtnDeletar" Command="{Binding DeletarAtividadeCommand}" Content="Deletar" HorizontalAlignment="Left" Margin="58.2,112,0,0" VerticalAlignment="Top" Width="75" Height="23" FontFamily="Book Antiqua" AutomationProperties.HelpText="Clique para deletar os dados" AutomationProperties.Name="btnDeletar"
+        <Button x:Name="BtnDeletar" Command="{Binding DeletarAtividadeCommand}" Content="Excluir" HorizontalAlignment="Left" Margin="58.2,112,0,0" VerticalAlignment="Top" Width="75" Height="23" FontFamily="Book Antiqua" AutomationProperties.HelpText="Clique para deletar os dados" AutomationProperties.Name="btnDeletar"
                 Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="2" />
         <Button Content="Editar" Command="{Binding EditarAtividadeCommand}" IsEnabled="{Binding GridHabilitado}" Height="23" HorizontalAlignment="Left" Margin="60,112,0,0" x:Name="BtnEditar" VerticalAlignment="Top" Width="75" FontFamily="Book Antiqua"
                 Grid.Row="0" Grid.Column="3" />
