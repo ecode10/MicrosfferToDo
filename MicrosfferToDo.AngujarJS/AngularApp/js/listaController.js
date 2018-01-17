@@ -97,7 +97,7 @@
 
             $scope.atividadestodo.NomeTodo = "";
             $scope.atividadestodo.IdTodo = "";
-            $scope.atividadestodo.BtnSalvar = "Salvar";
+            $scope.atividadestodo.BtnSalvar = "Adicionar";
 
             //document.getElementById("nomeTodo").focus();
         };
