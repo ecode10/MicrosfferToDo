@@ -11,7 +11,7 @@ namespace MicrosfferToDo.WPF.Command
 {
     public class AtualizarAtividadeCommand : ICommand
     {
-        public ToDoViewModel TodoViewModel { get; }
+        public ToDoViewModel ViewModel { get; }
 
 
         ///<summary>
@@ -19,7 +19,7 @@ namespace MicrosfferToDo.WPF.Command
         /// </summary>
         public AtualizarAtividadeCommand(ToDoViewModel viewModel)
         {
-            TodoViewModel = viewModel;
+            ViewModel = viewModel;
         }
        
 
@@ -29,7 +29,7 @@ namespace MicrosfferToDo.WPF.Command
         /// </summary>
         public bool CanExecute(object parameter)
         {
-            return IsNullOrEmpty(TodoViewModel.NomeTodo);
+            return IsNullOrEmpty(ViewModel.NomeTodo);
         }
 
         /// <summary>
@@ -54,21 +54,21 @@ namespace MicrosfferToDo.WPF.Command
             //preenche os dados da classe para passar para a WebAPI
             var atividades = new AtividadeToDo()
             {
-                NomeTodo = TodoViewModel.NomeTodo,
+                NomeTodo = ViewModel.NomeTodo,
                 CompletoTodo = 0,
-                IdTodo = TodoViewModel.IdTodo
+                IdTodo = ViewModel.IdTodo
             };
 
             //Chama a classe PUT passando a constante, id e os dados
-            HttpResponseMessage response = client.PutAsJsonAsync(EnderecosWebApi.Put + TodoViewModel.IdTodo, atividades).Result;
+            HttpResponseMessage response = client.PutAsJsonAsync(EnderecosWebApi.Put + ViewModel.IdTodo, atividades).Result;
 
             //Se a resposta do Web Api retornar com sucesso, carrega os dados novamente
             if (response.IsSuccessStatusCode)
             {
-                CarregarAtividadeCommand carregaAtividadeCommand = new CarregarAtividadeCommand(TodoViewModel);
+                CarregarAtividadeCommand carregaAtividadeCommand = new CarregarAtividadeCommand(ViewModel);
                 carregaAtividadeCommand.Execute(null);
 
-                CancelarEdicaoCommand cancelaEdicaoCommand = new CancelarEdicaoCommand(TodoViewModel);
+                CancelarEdicaoCommand cancelaEdicaoCommand = new CancelarEdicaoCommand(ViewModel);
                 cancelaEdicaoCommand.Execute(null);
             }
         }

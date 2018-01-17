@@ -9,7 +9,7 @@ namespace MicrosfferToDo.WPF.Command
         /// <summary>
         /// Propriedade privada da ViewModel
         /// </summary>
-        public ToDoViewModel TodoViewModel { get; }
+        public ToDoViewModel ViewModel { get; }
 
         /// <summary>
         /// Construtor da classe
@@ -18,7 +18,7 @@ namespace MicrosfferToDo.WPF.Command
         public EditarAtividadeCommand(ToDoViewModel viewModel)
         {
             //atribui os dados da View Model para a propriedade privada
-            TodoViewModel = viewModel;
+            ViewModel = viewModel;
         }
         
         /// <summary>
@@ -26,7 +26,7 @@ namespace MicrosfferToDo.WPF.Command
         /// </summary>
         public bool CanExecute(object parameter)
         {
-            return TodoViewModel.Atividade != null;
+            return ViewModel.Atividade != null;
         }
 
         /// <summary>
@@ -44,13 +44,13 @@ namespace MicrosfferToDo.WPF.Command
         /// </summary>
         public void Execute(object parameter)
         {
-            var atividade = TodoViewModel.Atividade;
+            var atividade = ViewModel.Atividade;
 
-            TodoViewModel.NomeTodo = atividade.NomeTodo;
-            TodoViewModel.IdTodo = atividade.IdTodo;
+            ViewModel.NomeTodo = atividade.NomeTodo;
+            ViewModel.IdTodo = atividade.IdTodo;
 
-            TodoViewModel.BtnSalvar = Library.Constantes.Wpf.BotaoSalvarAlteracoes;
-            TodoViewModel.GridHabilitado = false;
+            ViewModel.BtnSalvar = Library.Constantes.Wpf.BotaoSalvarAlteracoes;
+            ViewModel.GridHabilitado = false;
         }
     }
 }

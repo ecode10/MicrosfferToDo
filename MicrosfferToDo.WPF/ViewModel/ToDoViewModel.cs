@@ -96,8 +96,8 @@ namespace MicrosfferToDo.WPF.ViewModel
         /// Id da atividade
         /// Mesmo nome da propriedade do banco de dados
         /// </summary>
-        private Int64 _idTodo;
-        public Int64 IdTodo
+        private long _idTodo;
+        public long IdTodo
         {
             get => _idTodo;
             set

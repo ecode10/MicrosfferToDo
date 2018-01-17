@@ -12,7 +12,7 @@ namespace MicrosfferToDo.WPF.Command
         /// <summary>
         /// Propriedade da ViewModel
         /// </summary>
-        public ToDoViewModel TodoViewModel { get; }
+        public ToDoViewModel ViewModel { get; }
 
         /// <summary>
         /// Construtor da classe
@@ -20,7 +20,7 @@ namespace MicrosfferToDo.WPF.Command
         /// <param name="viewModel"></param>
        public DeletarAtividadeCommand(ToDoViewModel viewModel)
         {
-            TodoViewModel = viewModel;
+            ViewModel = viewModel;
         }
         
 
@@ -31,7 +31,7 @@ namespace MicrosfferToDo.WPF.Command
         /// </summary>
         public bool CanExecute(object parameter)
         {
-            return !string.IsNullOrEmpty(TodoViewModel.NomeTodo) || TodoViewModel.Atividade!=null;
+            return !string.IsNullOrEmpty(ViewModel.NomeTodo) || ViewModel.Atividade!=null;
         }
 
         /// <summary>
@@ -54,16 +54,16 @@ namespace MicrosfferToDo.WPF.Command
             var client = HttpClientRequest.GetClient();
 
             //Chama o método de delete do Web API passando o Id selecionado
-            HttpResponseMessage response = client.DeleteAsync(EnderecosWebApi.Delete+ TodoViewModel.Atividade.IdTodo).Result;
+            HttpResponseMessage response = client.DeleteAsync(EnderecosWebApi.Delete+ ViewModel.Atividade.IdTodo).Result;
 
             //No caso de sucesso dos dados, carrega os dados novamente da lista
             //Limpa a lista
             if (response.IsSuccessStatusCode)
             {
-                CarregarAtividadeCommand carregaAtividadeCommand = new CarregarAtividadeCommand(TodoViewModel);
+                CarregarAtividadeCommand carregaAtividadeCommand = new CarregarAtividadeCommand(ViewModel);
                 carregaAtividadeCommand.Execute(null);
 
-                CancelarEdicaoCommand cancelaEdicaoCommand = new CancelarEdicaoCommand(TodoViewModel);
+                CancelarEdicaoCommand cancelaEdicaoCommand = new CancelarEdicaoCommand(ViewModel);
                 cancelaEdicaoCommand.Execute(null);
             }
         }

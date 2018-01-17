@@ -15,7 +15,7 @@ namespace MicrosfferToDo.WPF.Command
         /// <summary>
         /// Propriedade privda contendo os campos da View
         /// </summary>
-        public ToDoViewModel TodoViewModel { get; }
+        public ToDoViewModel ViewModel { get; }
 
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace MicrosfferToDo.WPF.Command
         /// <param name="viewModel"></param>
        public CarregarAtividadeCommand(ToDoViewModel viewModel)
         {
-            TodoViewModel = viewModel;
+            ViewModel = viewModel;
         }
        
         
@@ -34,7 +34,7 @@ namespace MicrosfferToDo.WPF.Command
         /// </summary>
         public bool CanExecute(object parameter)
         {
-            return TodoViewModel.ListDeAtividadeToDo == null;
+            return ViewModel.ListDeAtividadeToDo == null;
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace MicrosfferToDo.WPF.Command
                 var atividadesTodo = response.Content.ReadAsAsync<IEnumerable<AtividadeToDo>>().Result;
 
                 //Preenche a lista para retorno
-                ObservableCollection<AtividadeToDo> list = TodoViewModel.ListDeAtividadeToDo; //new ObservableCollection<AtividadeToDo>(_atividadesTodo);
+                ObservableCollection<AtividadeToDo> list = ViewModel.ListDeAtividadeToDo; //new ObservableCollection<AtividadeToDo>(_atividadesTodo);
                 list.Clear();
                 foreach (var item in atividadesTodo)
                 {
@@ -78,7 +78,7 @@ namespace MicrosfferToDo.WPF.Command
                     list.Add(ativ);
                 }
 
-                TodoViewModel.ListDeAtividadeToDo = list;
+                ViewModel.ListDeAtividadeToDo = list;
             }
             
         }

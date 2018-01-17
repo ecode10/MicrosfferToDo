@@ -23,7 +23,7 @@ textarea {
     max-width: 280px;
 }
 
-#midias {
+#seta {
     position: fixed;
     z-index: 1000;
     /*margin-top: 1px;*/
@@ -35,6 +35,6 @@ textarea {
     margin-bottom: auto;
 }
 
-#midias a:hover {
+#seta a:hover {
     margin-left: 15px
 }

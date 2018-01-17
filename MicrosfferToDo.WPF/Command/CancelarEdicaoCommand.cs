@@ -9,7 +9,7 @@ namespace MicrosfferToDo.WPF.Command
         /// <summary>
         /// Campos da View Model
         /// </summary>
-        public ToDoViewModel TodoViewModel { get; }
+        public ToDoViewModel ViewModel { get; }
 
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace MicrosfferToDo.WPF.Command
         /// <param name="viewModel"></param>
         public CancelarEdicaoCommand(ToDoViewModel viewModel)
         {
-            TodoViewModel = viewModel;
+            ViewModel = viewModel;
         }
         
 
@@ -28,7 +28,7 @@ namespace MicrosfferToDo.WPF.Command
         /// </summary>
         public bool CanExecute(object parameter)
         {
-            return !string.IsNullOrEmpty(TodoViewModel.NomeTodo) || TodoViewModel.Atividade != null;
+            return !string.IsNullOrEmpty(ViewModel.NomeTodo) || ViewModel.Atividade != null;
         }
 
         /// <summary>
@@ -46,12 +46,12 @@ namespace MicrosfferToDo.WPF.Command
         /// </summary>
         public void Execute(object parameter)
         {
-            TodoViewModel.IdTodo = 0;
-            TodoViewModel.NomeTodo = string.Empty;
-            TodoViewModel.Atividade = null;
+            ViewModel.IdTodo = 0;
+            ViewModel.NomeTodo = string.Empty;
+            ViewModel.Atividade = null;
 
-            TodoViewModel.BtnSalvar = Library.Constantes.Wpf.BotaoAdicionar;
-            TodoViewModel.GridHabilitado = true;
+            ViewModel.BtnSalvar = Library.Constantes.Wpf.BotaoAdicionar;
+            ViewModel.GridHabilitado = true;
         }
         
     }
