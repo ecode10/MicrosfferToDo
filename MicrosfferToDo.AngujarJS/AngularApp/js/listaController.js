@@ -55,6 +55,8 @@
 
                     //carrega os dados da atividade não realizada
                     carregaDados();
+
+                    alert("Atividade alterada com sucesso.");
                 });
 
             } else { //insere usando web api
