@@ -3,11 +3,11 @@
 Many projects like:
 * WebAPI in C#
 * AngularJS last version
-* WebSite in C# ASP.NET
 * Desktop WPF MVVM in C#
 
 Solution created in Visual Studio 2017.
 <Br>Simple projects and the same time completed.
+  <Br>Resharp added
 
 The main project is WebAPI and the DataBase in SQL Server.<br>
 The other projects connect with WebAPI. 
