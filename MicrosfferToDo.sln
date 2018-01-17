@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrosfferToDo.WebAPI", "MicrosfferToDo\MicrosfferToDo.WebAPI.csproj", "{B61E827E-8113-4F27-997D-8F8086509476}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrosfferToDo.WebSite", "MicrosfferToDo.WebSite\MicrosfferToDo.WebSite.csproj", "{9E51CCD8-E863-4445-812F-1ED8AF088917}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrosfferToDo.WPF", "MicrosfferToDo.WPF\MicrosfferToDo.WPF.csproj", "{C083268A-1A15-4D40-8E2C-18640F44BA70}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrosfferToDo.Library", "MicrosfferToDo.Library\MicrosfferToDo.Library.csproj", "{82BC235D-A478-479C-9CC3-9900487D57B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrosfferToDo.AngujarJS", "MicrosfferToDo.AngujarJS\MicrosfferToDo.AngujarJS.csproj", "{2461D543-9B14-4F0D-B4E7-DCBDB909DAD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrosfferToDo.WebAPI", "MicrosfferToDo\MicrosfferToDo.WebAPI.csproj", "{B61E827E-8113-4F27-997D-8F8086509476}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B61E827E-8113-4F27-997D-8F8086509476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B61E827E-8113-4F27-997D-8F8086509476}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B61E827E-8113-4F27-997D-8F8086509476}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B61E827E-8113-4F27-997D-8F8086509476}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9E51CCD8-E863-4445-812F-1ED8AF088917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E51CCD8-E863-4445-812F-1ED8AF088917}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E51CCD8-E863-4445-812F-1ED8AF088917}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E51CCD8-E863-4445-812F-1ED8AF088917}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C083268A-1A15-4D40-8E2C-18640F44BA70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C083268A-1A15-4D40-8E2C-18640F44BA70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C083268A-1A15-4D40-8E2C-18640F44BA70}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +29,10 @@ Global
 		{2461D543-9B14-4F0D-B4E7-DCBDB909DAD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2461D543-9B14-4F0D-B4E7-DCBDB909DAD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2461D543-9B14-4F0D-B4E7-DCBDB909DAD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B61E827E-8113-4F27-997D-8F8086509476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B61E827E-8113-4F27-997D-8F8086509476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B61E827E-8113-4F27-997D-8F8086509476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B61E827E-8113-4F27-997D-8F8086509476}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

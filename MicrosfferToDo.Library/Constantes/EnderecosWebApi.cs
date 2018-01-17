@@ -9,7 +9,7 @@
     public static class EnderecosWebApi
     {
         //constantes utilizadas nos outros projetos WebSite, Web API e WPF
-        public const string EnderecoBase = "https://microsffertodo.azurewebsites.net/";//http://localhost:50307/ mudar o endereço base do Web API
+        public const string EnderecoBase = "http://microsffertodo.azurewebsites.net/";//"http://localhost:50307/";// mudar o endereço base do Web API
         public const string Post = "api/AtividadesToDo";
         public const string Get = "api/AtividadesToDo";
         public const string Delete = "api/AtividadesToDo/"; //{Id}

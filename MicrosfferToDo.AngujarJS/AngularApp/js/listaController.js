@@ -2,9 +2,17 @@
 
     var listaController = function ($scope, atividadeService)
     {
+        var limparBotao;
+        var removerAtividadePorId;
+        var carregaDados;
+        var carregaDadosRealizados;
+
         //pega os dados do web api e atualiza as atividades não realizadas
         atividadeService.getAtividades(0).then(function (response) {
             $scope.atividadestodo = response.data;
+
+            limparBotao();
+            
         });
 
         //pega os dados do web api e atualiza as atividades realizadas
@@ -14,17 +22,17 @@
         
         //método que deleta o dado usando web api - atividades não realizadas
         //acionado no click do botao delete
-        var removerAtividadePorId;
         $scope.deleta = function (ativ) {
             atividadeService.deleta(ativ).then(function () {
                 removerAtividadePorId(ativ.IdTodo);
+
+                //muda os dados dos botoes e campos
+                limparBotao();
             });
         };
 
         //atualiza o status das atividades realizadas e não realizadas
         //acionada no click da imagem
-        var carregaDados;
-        var carregaDadosRealizados;
         $scope.atualizaStatus = function (ativ, status) {
             atividadeService.atualizar(ativ.IdTodo, ativ.NomeTodo, status).then(function () {
                 carregaDados();
@@ -36,21 +44,17 @@
         //acionado no click do botão salvar
         $scope.salvar = function (ativ) {
             //pega os valores dos campos
-            var nome = document.getElementById("nomeTodo").value;
-            var id = document.getElementById("IdTodo").value;
+            var nome = $scope.atividadestodo.NomeTodo;
+            var id = $scope.atividadestodo.IdTodo;
 
-            if (document.getElementById("btnSalvar").innerText === "Editar") {
+            //alert($scope.atividadestodo.BtnSalvar);
+            if ($scope.atividadestodo.BtnSalvar === "Salvar alterações") {
 
                 //atualiza com a web api
                 atividadeService.atualizar(id, nome, 0).then(function () {
 
                     //carrega os dados da atividade não realizada
                     carregaDados();
-
-                    //muda os dados dos botoes e campos
-                    document.getElementById("btnSalvar").innerText = "Salvar";
-                    document.getElementById("nomeTodo").value = "";
-                    document.getElementById("IdTodo").value = "";
                 });
 
             } else { //insere usando web api
@@ -60,7 +64,7 @@
 
                     //insere na web api
                     atividadeService.inserir(ativ).then(function () {
-                        carregaDados();
+                       carregaDados();
                     });
                 } else {
                     //exibe mensagem ao usuário
@@ -69,13 +73,31 @@
             }
         };
 
+        //salva ou edita os dados
+        //acionado no click do botão salvar
+        $scope.limpar = function () {
+
+            limparBotao();
+        };
+
         //coloca os dados nos campos para edição
         //acionado no click do edit dentro da tabela (table)
         $scope.editarDados = function (ativ) {
-            document.getElementById("nomeTodo").value = ativ.NomeTodo;
-            document.getElementById("IdTodo").value = ativ.IdTodo;
 
-            document.getElementById("btnSalvar").innerText = "Editar";
+            $scope.atividadestodo.NomeTodo = ativ.NomeTodo;
+            $scope.atividadestodo.IdTodo = ativ.IdTodo;
+            $scope.atividadestodo.BtnSalvar = "Salvar alterações";
+
+            document.getElementById("nomeTodo").focus();
+        };
+
+        limparBotao = function () {
+
+            $scope.atividadestodo.NomeTodo = "";
+            $scope.atividadestodo.IdTodo = "";
+            $scope.atividadestodo.BtnSalvar = "Salvar";
+
+            //document.getElementById("nomeTodo").focus();
         };
 
         //método privado utilizado para apagar ao invés de atualizar a página com o webapi
@@ -92,6 +114,8 @@
         carregaDados = function () {
             atividadeService.getAtividades(0).then(function (response) {
                 $scope.atividadestodo = response.data;
+
+                limparBotao();
             });
         };
 
@@ -99,10 +123,12 @@
         carregaDadosRealizados = function () {
             atividadeService.getAtividades(1).then(function (response) {
                 $scope.atividadestodoRealizado = response.data;
+
+                limparBotao();
             });
         };
     };
 
-    app.controller('listaController', listaController);
+    app.controller("listaController", listaController);
 
 }(angular.module("atividadesModulo")))

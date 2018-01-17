@@ -1,5 +1,4 @@
-﻿<br />
-<div class="well">
+﻿<div class="well">
     <h1>Microsffer ToDo</h1> Feito em AngularJS
 </div>
 
@@ -22,9 +21,10 @@
     <div ng-controller="listaController">
 
         <div class="input-group">
-            <input type="hidden" id="IdTodo" ng-model="atividadestodo.IdTodo" />
-            <input type="text" class="form-control" ng-model="atividadestodo.NomeTodo" placeholder="Digite a atividade." id="nomeTodo" />&nbsp;
-            <button class="btn btn-primary btn-block" id="btnSalvar" ng-click="salvar(atividadestodo)">Salvar</button>
+            <input type="hidden" id="IdTodo" ng-model="atividadestodo.IdTodo"/>
+            <input type="text" maxlength="50" class="form-control" ng-model="atividadestodo.NomeTodo" placeholder="Digite a atividade." id="nomeTodo" />&nbsp;
+            <input type="button" class="btn btn-primary btn-block" id="btnSalvar" ng-click="salvar(atividadestodo)" ng-value="atividadestodo.BtnSalvar"/>
+            <button class="btn btn-primary btn-block" id="btnLimpar" ng-click="limpar()">Limpar</button>
         </div>
 
         <br /><br />
@@ -40,7 +40,7 @@
                     <button class="btn btn-primary" ng-click="editarDados(ativ)">Editar</button>
                 </td>
                 <td>
-                    <button class="btn btn-danger" ng-click="deleta(ativ)">Deletar</button>
+                    <button class="btn btn-danger" ng-click="deleta(ativ)">Excluir</button>
                 </td>
             </tr>
         </table>
