@@ -6,8 +6,15 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    
+    <script>
+        function adicionar() {
+            document.getElementById("nomeTodo").focus();
+        }
+    </script>
 </head>
 <body>
+    
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -16,7 +23,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Microsffer ToDo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Microsffer ToDo", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -25,17 +32,29 @@
                 </ul>
             </div>
         </div>
+        
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p style="text-align:center;">&copy; @DateTime.Now.Year - <a href="https://www.mauriciojunior.org">Mauricio Junior</a></p>
-        </footer>
+<div class="container body-content">
+    
+    <div id="midias">
+        <a href="javascript:adicionar();"><Br /><img src="~/AngularApp/image/setacima.png" /></a>&nbsp;
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @RenderBody()
+
+
+    <hr/>
+    <footer>
+        <p style="text-align: center;">&copy; @DateTime.Now.Year - <a href="https://www.mauriciojunior.org">Mauricio Junior</a></p>
+    </footer>
+    
+
+</div>
+
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </body>
 </html>

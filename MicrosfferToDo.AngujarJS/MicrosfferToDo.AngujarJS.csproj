@@ -152,6 +152,7 @@
   <ItemGroup>
     <Content Include="AngularApp\image\checkbox_preenchido.png" />
     <Content Include="AngularApp\image\checkbox_vazio.png" />
+    <Content Include="AngularApp\image\setacima.png" />
     <Content Include="AngularApp\js\atividades.js" />
     <Content Include="AngularApp\js\atividadeService.js" />
     <Content Include="AngularApp\js\listaController.js" />
