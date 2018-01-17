@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Constantes\EnderecosWebApi.cs" />
     <Compile Include="Constantes\TokenWebApi.cs" />
+    <Compile Include="Constantes\Wpf.cs" />
     <Compile Include="Util\HTMLToText.cs" />
     <Compile Include="Util\HttpClientRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -211,7 +211,7 @@ namespace MicrosfferToDo.WPF.ViewModel
             CarregarAtividadeCommand.Execute(null);
 
             //
-            BtnSalvar = "Salvar";
+            BtnSalvar = Library.Constantes.Wpf.BotaoAdicionar;
             GridHabilitado = true;
         }
         

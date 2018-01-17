@@ -50,7 +50,7 @@ namespace MicrosfferToDo.WPF.Command
             TodoViewModel.NomeTodo = string.Empty;
             TodoViewModel.Atividade = null;
 
-            TodoViewModel.BtnSalvar = "Salvar";
+            TodoViewModel.BtnSalvar = Library.Constantes.Wpf.BotaoAdicionar;
             TodoViewModel.GridHabilitado = true;
         }
         
