@@ -4,8 +4,10 @@ Many projects like:
 * WebAPI in C# (Back-end)
 * AngularJS last version (front accessing the back-end)
 * Desktop WPF MVVM in C# (front accessing the back-end)
-* Aplicativo WebForms (front-end accessing the back-end)
+* Desktop Aplicativo WebForms (front-end accessing the back-end)
 * Database: SQL Server
+* Using design patterns
+* MVC and MVVM
 
 Solution created in Visual Studio 2017.
 <Br>Simple projects and the same time completed.
