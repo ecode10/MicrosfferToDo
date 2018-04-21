@@ -5,6 +5,9 @@ Many projects like:
 * AngularJS last version (front accessing the back-end)
 * Desktop WPF MVVM in C# (front accessing the back-end)
 * Desktop Aplicativo WebForms (front-end accessing the back-end)
+* WebForms project
+* Web MVC project
+
 * Database: SQL Server
 * Using design patterns
 * MVC and MVVM
