@@ -4,8 +4,7 @@ Many projects like:
 * WebAPI in C# (Back-end connecting using EntityFramework)
 * AngularJS last version (front accessing the back-end)
 * Desktop WPF MVVM in C# (front accessing the back-end)
-* Desktop Aplicativo WebForms (front-end accessing the back-end)
-* WebForms project
+* WebForms (front-end accessing the back-end)
 * Web MVC project
 
 * Database: SQL Server
